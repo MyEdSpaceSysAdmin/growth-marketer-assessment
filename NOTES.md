@@ -8,7 +8,7 @@ Built in `app/page.tsx`. Stack as provided (Next.js 14 app router, Tailwind, TS,
 
 The brief is solid, but a few items would actively cost conversions or were inconsistent with a US, no-sales-call funnel. I made the call and shipped the fix rather than the literal instruction.
 
-**The H1 is a placeholder of course .** "Create something that will capture attention" is a note to the candidate, not a headline. I wrote an outcome-led, parent-voice H1: *"Math stops being the nightly fight. The grades start climbing."* It names the emotional before/after (the nightly homework battle → rising grades) rather than describing the product. I also kept it gender-neutral ("they/their", "our kid") since the audience is parents of both boys and girls.
+**The H1 is a placeholder, not copy.** "Create something that will capture attention" is a note to the writer, not a headline. I wrote an outcome-led, parent-voice H1: *"Math stops being the nightly fight. The grades start climbing."* It names the emotional before/after (the nightly homework battle → rising grades) rather than describing the product. I also kept it gender-neutral ("they/their", "our kid") since the audience is parents of both boys and girls.
 
 **"Lead capture" form vs. the actual goal.** The brief's form is a lead-capture form (name, email, phone, grade → submit). But the stated goal is a **$7 charge with no human in the loop** — that's a checkout, not a lead form. A lead form would hand off to a sales motion the brief explicitly rules out. I built a real 3-step self-checkout (account → card + billing disclosure → success), so a parent can convert end-to-end alone.
 
@@ -48,13 +48,27 @@ Concretely: the guarantee isn't left as fine print. It's a bordered promise bloc
 
 (Honourable mention: goal-gradient in the checkout progress indicator — but that lifts *completion* once they've started, whereas risk reversal is what gets them to start at all, so it's the bigger lever for cold traffic.)
 
+### Every growth principle on the page, and where it lives
+
+Risk reversal is the *lead* lever, but the page applies a stack of principles from growth.design — each one labelled inline in the code with a `[GP: ...]` comment so it's visible in the build, not just claimed here:
+
+- **Loss aversion / risk reversal** — hero promise block, checkout billing disclosure, Lauren H. review.
+- **Anchoring** — the $640+/mo private-tutor column makes $149 read as small.
+- **Centre-stage effect** — MyEdSpace occupies the middle comparison column, lifted and green-bordered.
+- **Von Restorff (isolation) effect** — lime (`#b1db00`) reserved exclusively for CTAs, so the action pops against everything around it.
+- **Hick's Law** — one CTA in the header (not competing buttons); the grade selector collapses "which course?" into a single grade choice.
+- **Goal-gradient effect** — the "Step 1 of 2" progress indicator in the checkout modal pulls people toward completion.
+- **Social proof** — US-localised reviews grid plus the "21,000+ students / 4.8 Excellent" trust strip.
+- **Authority bias** — Eddie's credentials block (UCLA, perfect SAT, 9+ years) anchored by his real photo and intro video.
+
 ---
 
 ## 4. What I'd ship next with another day
 
-- **A/B test the H1.** Mine is one strong hypothesis (emotional before/after). I'd test it against a credential-led variant ("Learn math from a teacher with a perfect SAT score") and an outcome/number-led variant, since the headline is the single highest-traffic element.
+- **A/B test the phone field: present vs. absent at checkout.** I made a judgment call to pull phone out of the pre-payment form and offer it as an optional post-purchase opt-in, to cut checkout friction. I'd prove that call with data rather than assert it: measure trial-start completion *and* whether no-phone signups convert to paid at the same rate as phone-captured ones. If completion lifts without hurting paid conversion, the friction-removal wins; if paid conversion drops, the phone was qualifying intent and belongs back in. This is the test with the clearest revenue thesis on the page.
+- **Then A/B test the H1.** Lower priority but worth running: my headline is one hypothesis (loss aversion / sunk-cost). I'd test it against a credential-led variant ("Learn from a teacher with a perfect SAT score") since the headline is the highest-traffic element — but only after the checkout-friction question, which moves more money.
+- **Funnel instrumentation first, so the tests above are measurable.** Fire events on grade-select, each checkout step, and trial-start. You can't run either test — or optimise paid traffic at all — without seeing exactly where parents drop off. This is the prerequisite for everything else.
+- **Wire a real payment processor (Stripe) + server-side validation.** The checkout is currently a faithful front-end simulation; production needs actual payment plus email/calendar provisioning on success.
 - **Swap `<img>`/`<video>` for Next.js `<Image>` and a lazy-loaded poster.** I used plain tags for reliability; production should use `<Image>` for automatic optimisation and faster LCP, which matters on paid mobile traffic where every 100ms costs conversions.
-- **Wire a real payment processor (Stripe) + server-side validation.** The checkout is currently a faithful front-end simulation; the next step is actual payment + email/calendar provisioning.
 - **Exit-intent and scroll-depth triggers.** A last-chance risk-reversal modal on exit intent, and re-surfacing the CTA at scroll milestones, to recover abandoning paid clicks.
-- **Localise the curriculum PDFs.** They still carry UK footers (`.co.uk`) and "lessons each month" language. I'd get clean US versions before relying on them as primary proof.
-- **Analytics + event instrumentation.** Fire events on grade-select, checkout-step, and trial-start so the funnel is measurable from day one — you can't optimise paid traffic you can't see.
+- **Localise the curriculum PDFs.** They still carry UK footers (`.co.uk`) and "lessons each month" language; I'd get clean US versions before relying on them as primary proof.
