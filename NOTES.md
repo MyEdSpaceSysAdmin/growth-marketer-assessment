@@ -8,7 +8,7 @@ Built in `app/page.tsx`. Stack as provided (Next.js 14 app router, Tailwind, TS,
 
 The brief is solid, but a few items would actively cost conversions or were inconsistent with a US, no-sales-call funnel. I made the call and shipped the fix rather than the literal instruction.
 
-**The H1 is a placeholder, not copy.** "Create something that will capture attention" is a note to the writer, not a headline. I wrote an outcome-led, parent-voice H1: *"Math stops being the nightly fight. The grades start climbing."* It names the emotional before/after (the nightly homework battle → rising grades) rather than describing the product. I also kept it gender-neutral ("they/their", "our kid") since the audience is parents of both boys and girls.
+**The H1 is a placeholder of course , not copy.** "Create something that will capture attention" is a note to the candidate and not a headline. I wrote an outcome-led, parent-voice H1: *"Math stops being the nightly fight. The grades start climbing."* It names the emotional before/after (the nightly homework battle → rising grades) rather than describing the product. I also kept it gender-neutral ("they/their", "our kid") since the audience is parents of both boys and girls.
 
 **"Lead capture" form vs. the actual goal.** The brief's form is a lead-capture form (name, email, phone, grade → submit). But the stated goal is a **$7 charge with no human in the loop** — that's a checkout, not a lead form. A lead form would hand off to a sales motion the brief explicitly rules out. I built a real 3-step self-checkout (account → card + billing disclosure → success), so a parent can convert end-to-end alone.
 
@@ -22,19 +22,31 @@ The brief is solid, but a few items would actively cost conversions or were inco
 
 **Grade vs. course mismatch.** The brief labels the selector "grade" but lists *course names* (Pre-Algebra, Algebra I…). Parents know their child's grade, not always the right course. I built a grade selector (6–12) that maps to the correct course, removing a decision the parent shouldn't have to make.
 
-**A genuine source-asset inconsistency worth flagging.** The teacher is "Eddie Kang" in the brief, the curriculum PDFs, and the intro video. But one product screenshot in the asset folder (`img/eddie_3.webp`) shows the live-class UI under the name **"Daniel Khan."** I used `eddie_1` (headshot) and `eddie_2` (whiteboard, as the video poster) and **deliberately skipped `eddie_3`** to keep the named teacher consistent. The curriculum PDFs also still carry a few `myedspace.co.uk` footers and say "live lessons each month" where the page (correctly) says twice a week — so I linked them as proof of rigour but didn't screenshot their copy.
+**A genuine source-asset inconsistency worth flagging.** The teacher is "Eddie Kang" in the brief, the curriculum PDFs, and the intro video. But one product screenshot in the asset folder (`img/eddie_3.webp`) shows the live-class UI under the name **"Daniel Khan."** I deliberately skipped `eddie_3` to keep the named teacher consistent. The curriculum PDFs also still carry a few `myedspace.co.uk` footers and say "live lessons each month" where the page (correctly) says twice a week — so I linked them as proof of rigour but didn't screenshot their copy.
+
+**The "Not 1:1 Tutoring" is a negative, and I cut it.** The brief specifies an eyebrow of "Not 1:1 Tutoring." Leading with a negation primes the reader on the very thing you're *not*, and reads as defensive. The product genuinely *is* better than 1:1 — so I led with a positive, benefit-led eyebrow ("Live Online Math · Grades 6–12") and handled the 1-on-1 concern where it belongs: as an FAQ question, answered positively. Same truth, framed to convert instead of to apologise.
+
+**One teacher undersells the offer.** The brief centres a single teacher (Eddie). Real proof of a *platform* — rather than a one-person dependency — is a teaching *team*, so I presented Eddie alongside a second US teacher (Adam Gilbert: Brown University, 7+ years in US charter schools), split by course. It doubles the authority signal and removes the "what if that one teacher leaves?" doubt. (I verified both teachers against MyEdSpace's live US page so the credentials are real, not invented.)
 
 ---
 
 ## 2. Prompts that meaningfully shaped the output
 
-1. **Localisation + error-hunt framing.** I established up front that MyEdSpace is UK-rooted with a US arm, and instructed the agent to treat the brief as potentially containing planted UK→US localisation errors — then to flag each one rather than silently "fixing" it. This is what surfaced the UK phone format, the Trustpilot framing, and the timezone/cadence leftovers in the PDFs.
+I treated the AI as a fast junior who needs sharp direction and correction. The decisions were mine; the prompts were how I enforced them. The ones that mattered most:
 
-2. **"Lead the page with the blocking emotion, not the product."** I directed the agent to identify the audience's *blocking* emotion (fear of wasting money again, having been burned by tutors) and make the page answer that fear first — which drove the risk-reversal block into the hero rather than burying the guarantee in the FAQ.
+1. **Localisation + error-hunt framing (context loading).** Before any building, I told the agent that MyEdSpace is UK-rooted with a newer US arm, and instructed it to treat the brief as *potentially seeded with UK→US localisation errors* — and to flag each rather than silently "fix" it. Giving it that frame up front is what surfaced the UK phone format, the Trustpilot framing, and the `.co.uk` / "lessons each month" leftovers in the curriculum PDFs. Loading the right context changed what the model even looked for.
 
-3. **Label growth principles inline, then defend them.** I asked the agent to annotate each section with the specific growth.design principle it implements (e.g. Anchoring, Centre-stage, Loss Aversion, Goal-gradient, Hick's Law) so I could sanity-check that each was load-bearing, not decorative — and cut anything that was just "a nice section."
+2. **"Lead with the blocking emotion, not the product" (strategy before layout).** I made the agent first articulate the audience's *blocking* emotion — fear of wasting money again after being burned by tutors — and only then build, with the page answering that fear first. That's what pushed risk-reversal into the hero instead of leaving the guarantee in the FAQ. I steer with the strategy, not the section list.
 
-4. **Iterating against the no-human-in-the-loop constraint.** When the first pass produced a lead-capture form, I pushed back that the goal requires an actual charge with nobody in the loop, and had it rebuild the form as a real self-checkout with success state — and relocate the phone capture to a post-purchase optional step.
+3. **Label every growth principle inline, then justify it (forcing rigour).** I had it annotate each section with the specific growth.design principle it implements (`[GP: ...]`) and defend why it earned its place — then I cut anything that was decorative rather than load-bearing. This stopped the model padding the page with generic "nice" sections.
+
+4. **Correcting drift: lead-capture → real checkout.** The first pass gave me a lead-capture form. I pushed back hard — the brief's goal is a $7 *charge* with no human in the loop, so a form that defers to a sales motion fails the task — and made it rebuild a true 3-step self-checkout with billing disclosure and a success state. Knowing when the AI has quietly missed the actual objective is most of the job.
+
+5. **Positive-framing constraint across the whole page.** I instructed the agent that the page must never *lead* with a negation — no "Not 1:1 tutoring," no fear-led hooks — because negation primes the reader on the wrong thing. Every objection had to be reframed as a benefit or handled as a question-and-answer (e.g. the 1-on-1 concern lives in the FAQ, answered positively). This kept tone consistent even as sections were rewritten.
+
+6. **Optimising the above-the-fold for cold ad traffic.** I directed the build specifically for Google/Meta clicks: message-match the H1 to ad intent, value + CTA above the fold, immediate positive trust signals (4.8 · 21,000+ · 95% satisfaction), because paid traffic bounces in seconds. I treated the fold as the ad's landing promise, not a generic homepage hero.
+
+7. **Holding the brief as source of truth against newer real-world data.** When checking the live US site, I found the real page now uses two teachers, $199 pricing, and a $600+ anchor. I had the agent incorporate the *factual* update that strengthens the page (the second teacher, Adam) but **hold the brief's $149 / $640 figures**, since the brief governs this exercise. Knowing which new information to absorb and which to ignore is a judgment call I kept on my side, not the model's.
 
 ---
 
