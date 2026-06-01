@@ -118,21 +118,22 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-5 md:grid-cols-2 md:items-center md:gap-12 md:py-20">
           <div>
             <p className="mb-4 inline-block border border-brand-light-blue px-3 py-1 text-xs font-bold uppercase tracking-widest text-brand-light-blue">
-              Not 1:1 Tutoring
+              Live Online Math · Grades 6&ndash;12
             </p>
             <h1 className="text-[2.1rem] font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
-              Math stops being the nightly fight.
-              <span className="text-brand-green"> The grades start climbing.</span>
+              The math help that finally sticks.
+              <span className="text-brand-green"> Try it for $7.</span>
             </h1>
             <p className="mt-5 max-w-md text-base text-white/80 sm:text-lg">
-              Live classes twice a week, in your timezone — taught live by one of the
-              country&rsquo;s top math teachers, not a rotating cast of tutors.
+              Live math class twice a week with a top US teacher — same face every time, in your
+              timezone. Real teaching that builds week on week, for a fraction of a tutor&rsquo;s price.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-white/80">
               <span className="flex items-center gap-1.5">
                 <Stars /> 4.8 &ldquo;Excellent&rdquo;
               </span>
-              <span>21,000+ US students</span>
+              <span>21,000+ students taught</span>
+              <span>95% parent satisfaction</span>
             </div>
           </div>
 
@@ -172,60 +173,119 @@ export default function HomePage() {
       </section>
 
       <section className="border-b-2 border-brand-dark bg-white">
-        <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 md:py-20">
-          <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
-            The story we hear from parents every day
+        <div className="mx-auto max-w-4xl px-4 py-14 sm:px-5 md:py-20">
+          <p className="text-center text-sm font-bold uppercase tracking-widest text-brand-blue">
+            How it works
+          </p>
+          <h2 className="mt-3 text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
+            Not tutoring. Not school. Something built to actually move the grade.
           </h2>
-          <div className="mt-8 grid gap-5 md:mt-10 md:grid-cols-2 md:gap-6">
-            <div className="border-2 border-brand-dark bg-brand-light-blue/30 p-5 sm:p-6">
-              <p className="text-xs font-bold uppercase tracking-widest text-brand-dark/60">Before</p>
-              <p className="mt-3 text-base leading-relaxed sm:text-lg">
-                &ldquo;Another bad test. Homework turned into a fight every night. We tried a
-                private tutor at $80 an hour and they just did the homework <em>with our kid</em> —
-                never taught <em>the why</em>.&rdquo;
-              </p>
-            </div>
-            <div className="border-2 border-brand-blue bg-white p-5 sm:p-6">
-              <p className="text-xs font-bold uppercase tracking-widest text-brand-blue">
-                A few weeks with MyEdSpace
-              </p>
-              <p className="mt-3 text-base leading-relaxed sm:text-lg">
-                Something clicks. They start getting it. They stop dreading math. The grade goes
-                up — and so does their confidence. You stop being the homework referee.
-              </p>
-            </div>
+          <div className="mt-8 space-y-5 text-base leading-relaxed text-brand-dark/80 sm:text-lg">
+            <p>
+              Your child joins a live class twice a week, grouped by grade and taught by the same
+              expert teacher every session. This isn&rsquo;t recorded video — it&rsquo;s a real
+              classroom rhythm, online, where they ask questions and work problems in real time.
+            </p>
+            <p>
+              Each lesson builds deliberately on the last, so your child isn&rsquo;t memorising
+              steps — they&rsquo;re building a foundation they can stand on. Between classes,
+              targeted practice reinforces what they learned, and a 24/7 AI coach is there for
+              homework help whenever they get stuck. You see the progress without having to teach
+              the math yourself.
+            </p>
+          </div>
+          <div className="mt-8 grid gap-px border-2 border-brand-dark bg-brand-dark sm:grid-cols-3">
+            {[
+              ["Live, twice a week", "Real teaching in real time, grouped by your child's grade."],
+              ["Builds week on week", "Every lesson connects to the last. No gaps, no cramming."],
+              ["Support between classes", "Practice that reinforces, plus a 24/7 AI coach for stuck moments."],
+            ].map(([t, b]) => (
+              <div key={t} className="bg-white p-5">
+                <p className="font-bold">{t}</p>
+                <p className="mt-2 text-sm text-brand-dark/70">{b}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       <section className="bg-brand-light-blue/40">
-        <div className="mx-auto grid max-w-5xl gap-8 px-4 py-14 sm:px-5 md:grid-cols-[1fr_1.4fr] md:items-center md:gap-10 md:py-20">
-          <div className="border-2 border-brand-dark bg-white">
-            <img
-              src="/assets/img/eddie_1.webp"
-              alt="Eddie Kang, MyEdSpace math teacher"
-              className="w-full border-b-2 border-brand-dark bg-brand-light-blue/40 object-cover"
-            />
-            <div className="p-6 sm:p-8">
-              <p className="text-2xl font-extrabold">Eddie Kang</p>
-              <p className="mt-1 font-mono text-sm text-brand-blue">@EddieDoesMath</p>
-              <ul className="mt-5 space-y-3 text-sm">
-                <li className="flex gap-2"><Check /> UCLA Pure Math degree</li>
-                <li className="flex gap-2"><Check /> Perfect SAT Math score (800/800)</li>
-                <li className="flex gap-2"><Check /> 9+ years teaching in California high schools and colleges</li>
-              </ul>
-            </div>
-          </div>
-          <div>
-            <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
-              One great teacher. Every single class.
+        <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 md:py-20">
+          <div className="text-center">
+            <p className="text-sm font-bold uppercase tracking-widest text-brand-blue">
+              Meet your teachers
+            </p>
+            <h2 className="mt-3 text-2xl font-extrabold tracking-tight sm:text-4xl">
+              Real US teachers. The same face every class.
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-brand-dark/80 sm:text-lg">
-              No rotating tutors. No grad student earning a few extra bucks. Eddie teaches every
-              live lesson himself — answering questions and working problems with the class in
-              real time, twice a week. The same trusted face your child learns to rely on.
+            <p className="mx-auto mt-3 max-w-2xl text-brand-dark/70">
+              No rotating tutors, no grad students. Your child learns from one expert teacher who
+              shows up live twice a week — matched to their grade and course.
             </p>
           </div>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
+            {/* Eddie */}
+            <div className="border-2 border-brand-dark bg-white">
+              <div className="h-64 overflow-hidden border-b-2 border-brand-dark bg-brand-light-blue/40">
+                <img
+                  src="/assets/img/eddie_5.webp"
+                  alt="Eddie Kang, MyEdSpace math teacher"
+                  className="h-full w-full object-cover object-top"
+                />
+              </div>
+              <div className="p-6">
+                <p className="text-xl font-extrabold">Eddie Kang</p>
+                <p className="mt-1 text-sm font-bold text-brand-blue">
+                  Algebra I &amp; II · Geometry · AP Calculus
+                </p>
+                <ul className="mt-4 space-y-2 text-sm">
+                  <li className="flex gap-2"><Check /> UCLA Pure Math degree</li>
+                  <li className="flex gap-2"><Check /> Perfect SAT Math score (800/800)</li>
+                  <li className="flex gap-2"><Check /> 9+ years teaching in California schools</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Adam */}
+            <div className="border-2 border-brand-dark bg-white">
+              <div className="h-64 overflow-hidden border-b-2 border-brand-dark bg-brand-light-blue/40">
+                <img
+                  src="/assets/img/adam_1.webp"
+                  alt="Adam Gilbert, MyEdSpace math teacher"
+                  className="h-full w-full object-cover object-top"
+                />
+              </div>
+              <div className="p-6">
+                <p className="text-xl font-extrabold">Adam Gilbert</p>
+                <p className="mt-1 text-sm font-bold text-brand-blue">
+                  Pre-Algebra · Earlier grades · AP Pre-Calculus
+                </p>
+                <ul className="mt-4 space-y-2 text-sm">
+                  <li className="flex gap-2"><Check /> Brown University degree</li>
+                  <li className="flex gap-2"><Check /> 7+ years teaching in US charter schools</li>
+                  <li className="flex gap-2"><Check /> Specialist in building strong foundations</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-brand-blue text-white">
+        <div className="mx-auto max-w-4xl px-4 py-14 text-center sm:px-5 md:py-20">
+          <p className="text-sm font-bold uppercase tracking-widest text-brand-light-blue">
+            Why MyEdSpace
+          </p>
+          <h2 className="mt-3 text-2xl font-extrabold tracking-tight sm:text-4xl">
+            A real teacher and a real plan — not a tutor you hope shows up.
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
+            School moves too fast for 30 kids at once. Tutors cost a fortune and still leave gaps
+            between sessions. MyEdSpace gives your child a top US teacher, the same one every week,
+            a structured course that builds toward the exams that matter, and help between classes
+            whenever they&rsquo;re stuck — all for less than a few hours with a private tutor.
+          </p>
         </div>
       </section>
 
@@ -330,6 +390,33 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="bg-brand-light-blue/30">
+        <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 md:py-20">
+          <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
+            The shift parents tell us about
+          </h2>
+          <div className="mt-8 grid gap-5 md:mt-10 md:grid-cols-2 md:gap-6">
+            <div className="border-2 border-brand-dark bg-white p-5 sm:p-6">
+              <p className="text-xs font-bold uppercase tracking-widest text-brand-dark/60">Before</p>
+              <p className="mt-3 text-base leading-relaxed sm:text-lg">
+                Another bad test. Homework turning into a fight every night. A tutor that cost a
+                fortune and just did the homework <em>with</em> their kid — never teaching
+                <em> the why</em>.
+              </p>
+            </div>
+            <div className="border-2 border-brand-blue bg-white p-5 sm:p-6">
+              <p className="text-xs font-bold uppercase tracking-widest text-brand-blue">
+                A few weeks in
+              </p>
+              <p className="mt-3 text-base leading-relaxed sm:text-lg">
+                Something clicks. They start getting it. They stop dreading math. The grade goes
+                up — and so does their confidence. You stop being the homework referee.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="border-b-2 border-brand-dark bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-5 md:py-20">
           <div className="flex flex-col items-center gap-2 text-center">
@@ -358,7 +445,7 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-5xl gap-8 px-4 py-14 sm:px-5 md:grid-cols-2 md:items-center md:gap-10 md:py-20">
           <div>
             <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
-              Try it for $7. Decide after you&rsquo;ve seen it work.
+              Try it for $7. Decide once you&rsquo;ve seen it work.
             </h2>
             <p className="mt-4 text-base text-white/85 sm:text-lg">
               7 days of full access for $7 — every live class, recording, workbook and the AI
@@ -409,7 +496,7 @@ export default function HomePage() {
       <section className="bg-brand-dark text-white">
         <div className="mx-auto max-w-3xl px-4 py-14 text-center sm:px-5 md:py-20">
           <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
-            Give them a teacher who makes it click.
+            Same teacher. Same time. Every week until it clicks.
           </h2>
           <p className="mt-4 text-base text-white/80 sm:text-lg">
             Start today for $7. Cancel anytime. 30-day money-back guarantee.
