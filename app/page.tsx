@@ -541,7 +541,7 @@ export default function HomePage() {
       <section className="border-y-2 border-brand-dark bg-white text-brand-dark">
         <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 md:py-20">
           <SectionHeader
-            eyebrow="Compare the options"
+            eyebrow="What makes MyEdSpace better"
             title={<>The gap school doesn&rsquo;t fill — without the tutor price</>}
             align="center"
             eyebrowStyle="block"
@@ -551,7 +551,11 @@ export default function HomePage() {
           <div className="mt-10 hidden md:block">
             <div className="grid grid-cols-[1.6fr_1fr_1.1fr_1fr] border-l-2 border-t-2 border-brand-dark">
               {/* Header row */}
-              <div className="border-b-2 border-r-2 border-brand-dark bg-white" />
+              <div className="flex items-end border-b-2 border-r-2 border-brand-dark bg-white p-4">
+                <p className="text-lg font-extrabold leading-tight text-brand-dark">
+                  What you get,<br />side by side
+                </p>
+              </div>
               <div className="border-b-2 border-r-2 border-brand-dark bg-white px-4 pb-4 pt-5 text-center">
                 <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/60">School</p>
                 <p className="mt-1 text-2xl font-extrabold text-brand-dark">Free</p>
