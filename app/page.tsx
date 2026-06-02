@@ -8,7 +8,7 @@
  * Skipped img/eddie_3 (shows name "Daniel Khan", conflicts with "Eddie Kang") — see NOTES.md.
  */
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import reviewsData from "../docs/REVIEWS.json";
 
 type Review = {
@@ -129,6 +129,69 @@ function StepArrow() {
   );
 }
 
+// Flexible section header. Vary align ("left" | "center"), eyebrow style
+// ("block" = solid blue tag, "line" = blue rule beside text), and accent
+// ("underline" | "none") section-to-section for rhythm. Lime stays CTA-only.
+function SectionHeader({
+  eyebrow,
+  title,
+  align = "center",
+  eyebrowStyle = "block",
+  accent = "none",
+  onDark = false,
+}: {
+  eyebrow: string;
+  title: ReactNode;
+  align?: "left" | "center";
+  eyebrowStyle?: "block" | "line";
+  accent?: "underline" | "none";
+  onDark?: boolean;
+}) {
+  const wrap = align === "center" ? "text-center" : "text-left";
+  const flexAlign = align === "center" ? "justify-center" : "justify-start";
+  return (
+    <div className={wrap}>
+      {eyebrowStyle === "block" ? (
+        <div className={`flex ${flexAlign}`}>
+          <span
+            className={`inline-block px-3 py-1 text-xs font-bold uppercase tracking-widest ${
+              onDark ? "bg-white text-brand-blue" : "bg-brand-blue text-white"
+            }`}
+          >
+            {eyebrow}
+          </span>
+        </div>
+      ) : (
+        <div className={`flex items-center gap-3 ${flexAlign}`}>
+          <span className={`h-0.5 w-8 ${onDark ? "bg-brand-light-blue" : "bg-brand-blue"}`} />
+          <span
+            className={`text-xs font-bold uppercase tracking-widest ${
+              onDark ? "text-brand-light-blue" : "text-brand-blue"
+            }`}
+          >
+            {eyebrow}
+          </span>
+        </div>
+      )}
+      <h2
+        className={`mt-3 text-2xl font-extrabold tracking-tight sm:text-4xl ${
+          onDark ? "text-white" : "text-brand-dark"
+        }`}
+      >
+        {title}
+      </h2>
+      {accent === "underline" && (
+        <div
+          className={`mt-3 h-1 w-20 ${align === "center" ? "mx-auto" : ""} ${
+            onDark ? "bg-brand-light-blue" : "bg-brand-blue"
+          }`}
+          aria-hidden="true"
+        />
+      )}
+    </div>
+  );
+}
+
 export default function HomePage() {
   const [signupOpen, setSignupOpen] = useState(false);
   const [presetGrade, setPresetGrade] = useState<string>("");
@@ -196,12 +259,12 @@ export default function HomePage() {
 
       <section className="bg-white">
         <div className="mx-auto max-w-5xl px-4 py-12 sm:px-5 md:py-16">
-          <p className="text-center text-sm font-bold uppercase tracking-widest text-brand-blue">
-            Trusted by families worldwide
-          </p>
-          <h2 className="mx-auto mt-2 max-w-2xl text-center text-2xl font-extrabold tracking-tight sm:text-3xl">
-            21,000+ students. One reason they stay: it works.
-          </h2>
+          <SectionHeader
+            eyebrow="Trusted by families worldwide"
+            title="21,000+ students. One reason they stay: it works."
+            align="center"
+            eyebrowStyle="block"
+          />
           <div className="mt-8 grid grid-cols-2 divide-x-2 divide-y-2 divide-brand-dark border-2 border-brand-dark sm:grid-cols-4 sm:divide-y-0">
             {[
               ["21,000+", "Students taught"],
@@ -220,10 +283,13 @@ export default function HomePage() {
 
       <section className="border-b-2 border-brand-dark bg-brand-light-blue/40">
         <div className="mx-auto max-w-4xl px-4 py-14 sm:px-5 md:py-20">
-          <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
-            Meet the teacher before you spend a cent
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-center text-brand-dark/70">
+          <SectionHeader
+            eyebrow="See it first"
+            title="Meet the teacher before you spend a cent"
+            align="left"
+            eyebrowStyle="line"
+          />
+          <p className="mt-3 max-w-xl text-brand-dark/70">
             Watch Eddie explain how MyEdSpace classes work — then start your $7 trial.
           </p>
           <div className="mt-8 border-2 border-brand-dark bg-brand-dark">
@@ -237,14 +303,13 @@ export default function HomePage() {
 
       <section className="border-b-2 border-brand-dark bg-white">
         <div className="mx-auto max-w-4xl px-4 py-14 sm:px-5 md:py-20">
-          <div className="flex justify-center">
-            <span className="inline-block bg-brand-blue px-3 py-1 text-xs font-bold uppercase tracking-widest text-white">
-              How it works
-            </span>
-          </div>
-          <h2 className="mt-3 text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
-            Not tutoring. Not school. Something built to actually move the grade.
-          </h2>
+          <SectionHeader
+            eyebrow="How it works"
+            title="Not tutoring. Not school. Something built to actually move the grade."
+            align="center"
+            eyebrowStyle="block"
+            accent="underline"
+          />
           <div className="mt-8 space-y-5 text-base leading-relaxed text-brand-dark/80 sm:text-lg">
             <p>
               Here&rsquo;s what tutoring never gave you: a teacher who shows up at the same time
@@ -345,12 +410,13 @@ export default function HomePage() {
       <section className="bg-brand-blue text-white">
         <div className="mx-auto grid max-w-5xl items-center gap-8 px-4 py-14 sm:px-5 md:grid-cols-2 md:gap-12 md:py-20">
           <div>
-            <p className="text-sm font-bold uppercase tracking-widest text-brand-light-blue">
-              Why MyEdSpace
-            </p>
-            <h2 className="mt-3 text-2xl font-extrabold tracking-tight sm:text-4xl">
-              A real teacher and a real plan — not a tutor you hope shows up.
-            </h2>
+            <SectionHeader
+              eyebrow="Why MyEdSpace"
+              title="A real teacher and a real plan — not a tutor you hope shows up."
+              align="left"
+              eyebrowStyle="block"
+              onDark
+            />
             <p className="mt-4 text-base leading-relaxed text-white/85 sm:text-lg">
               School moves too fast for 30 kids at once. Tutors cost a fortune and still leave gaps.
               MyEdSpace gives your child the same top US teacher every week, a course that builds
@@ -393,10 +459,12 @@ export default function HomePage() {
 
       <section className="border-y-2 border-brand-dark bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-5 md:py-20">
-          <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
-            Everything included, one price
-          </h2>
-          <div className="mx-auto mt-3 h-1 w-20 bg-brand-blue" aria-hidden="true" />
+          <SectionHeader
+            eyebrow="What's included"
+            title="Everything included, one price"
+            align="left"
+            eyebrowStyle="block"
+          />
           <div className="mt-8 grid gap-[2px] border-2 border-brand-dark bg-brand-dark sm:grid-cols-2 md:mt-10 lg:grid-cols-3">
             {[
               ["2 live classes every week", "Real-time teaching with Eddie, in your timezone."],
@@ -417,9 +485,12 @@ export default function HomePage() {
 
       <section className="border-b-2 border-brand-dark bg-brand-light-blue/40">
         <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 md:py-20">
-          <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
-            See exactly what they&rsquo;ll learn
-          </h2>
+          <SectionHeader
+            eyebrow="The curriculum"
+            title={<>See exactly what they&rsquo;ll learn</>}
+            align="center"
+            eyebrowStyle="line"
+          />
           <p className="mx-auto mt-3 max-w-xl text-center text-brand-dark/70">
             Full month-by-month curriculum for every course — built toward US exams.
           </p>
@@ -447,10 +518,13 @@ export default function HomePage() {
 
       <section className="border-y-2 border-brand-dark bg-white text-brand-dark">
         <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 md:py-20">
-          <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
-            The gap school doesn&rsquo;t fill — without the tutor price
-          </h2>
-          <div className="mx-auto mt-3 h-1 w-20 bg-brand-blue" aria-hidden="true" />
+          <SectionHeader
+            eyebrow="Compare the options"
+            title={<>The gap school doesn&rsquo;t fill — without the tutor price</>}
+            align="center"
+            eyebrowStyle="block"
+            accent="underline"
+          />
           <div className="mt-8 grid items-center gap-4 md:mt-12 md:grid-cols-[1fr_1.35fr_1fr] md:gap-0">
             <div className="border-2 border-brand-dark bg-white p-6 md:border-r-0">
               <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/70">School</p>
@@ -511,9 +585,12 @@ export default function HomePage() {
 
       <section className="bg-brand-light-blue/30">
         <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 md:py-20">
-          <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
-            The shift parents tell us about
-          </h2>
+          <SectionHeader
+            eyebrow="Real parents"
+            title="The shift parents tell us about"
+            align="left"
+            eyebrowStyle="line"
+          />
           <div className="mt-8 grid gap-5 md:mt-10 md:grid-cols-2 md:gap-6">
             <div className="border-2 border-brand-dark bg-white p-5 sm:p-6">
               <p className="text-xs font-bold uppercase tracking-widest text-brand-dark/60">Before</p>
@@ -595,9 +672,12 @@ export default function HomePage() {
 
       <section className="border-b-2 border-brand-dark bg-white">
         <div className="mx-auto max-w-3xl px-4 py-14 sm:px-5 md:py-20">
-          <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
-            Questions parents ask first
-          </h2>
+          <SectionHeader
+            eyebrow="FAQs"
+            title="Questions parents ask first"
+            align="center"
+            eyebrowStyle="block"
+          />
           <div className="mt-8 border-2 border-brand-dark md:mt-10">
             <Faq
               items={[
