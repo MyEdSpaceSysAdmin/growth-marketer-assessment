@@ -121,12 +121,13 @@ export default function HomePage() {
               Live Online Math · Grades 6&ndash;12
             </p>
             <h1 className="text-[2.1rem] font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
-              The math help that finally sticks.
-              <span className="text-brand-green"> Try it for $7.</span>
+              School moves too fast. Tutors didn&rsquo;t stick.
+              <span className="text-brand-green"> This is the math help that works — try it for $7.</span>
             </h1>
             <p className="mt-5 max-w-md text-base text-white/80 sm:text-lg">
-              Live math class twice a week with a top US teacher — same face every time, in your
-              timezone. Real teaching that builds week on week, for a fraction of a tutor&rsquo;s price.
+              For grade 6&ndash;12 students who need more than school is giving them: live math
+              class twice a week with a top US teacher — same face every time, in your timezone.
+              Real teaching that builds week on week, for a fraction of a tutor&rsquo;s price.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-white/80">
               <span className="flex items-center gap-1.5">
@@ -139,7 +140,10 @@ export default function HomePage() {
 
           <div className="border-2 border-brand-green bg-white p-5 text-brand-dark sm:p-7">
             <p className="text-sm font-bold uppercase tracking-wide text-brand-blue">
-              Select their grade to get started
+              Let&rsquo;s find your child&rsquo;s class
+            </p>
+            <p className="mt-1 text-sm text-brand-dark/70">
+              Tell us their grade and we&rsquo;ll place them in the right course.
             </p>
             <GradePicker onStart={(g) => openSignup(g)} />
             <div className="mt-4 flex items-start gap-2 border-2 border-brand-dark bg-brand-light-blue/30 p-3">
@@ -182,9 +186,11 @@ export default function HomePage() {
           </h2>
           <div className="mt-8 space-y-5 text-base leading-relaxed text-brand-dark/80 sm:text-lg">
             <p>
-              Your child joins a live class twice a week, grouped by grade and taught by the same
-              expert teacher every session. This isn&rsquo;t recorded video — it&rsquo;s a real
-              classroom rhythm, online, where they ask questions and work problems in real time.
+              Here&rsquo;s what tutoring never gave you: a teacher who shows up at the same time
+              every week, a plan that goes somewhere, and momentum that doesn&rsquo;t reset every
+              session. Your child joins a live class twice a week, grouped by grade and taught by
+              the same expert teacher every time — a real classroom rhythm, online, where they ask
+              questions and work problems as they go. Not recorded video. Not a stranger each month.
             </p>
             <p>
               Each lesson builds deliberately on the last, so your child isn&rsquo;t memorising
@@ -353,6 +359,7 @@ export default function HomePage() {
               <p className="mt-2 text-2xl font-extrabold">Free</p>
               <ul className="mt-5 space-y-3 text-sm text-white/70">
                 <li className="flex gap-2 text-white/40"><Cross /> 30 kids per class</li>
+                <li className="flex gap-2 text-white/40"><Cross /> Same teacher? Not guaranteed</li>
                 <li className="flex gap-2 text-white/40"><Cross /> Fixed pace</li>
                 <li className="flex gap-2 text-white/40"><Cross /> No recordings</li>
                 <li className="flex gap-2 text-white/40"><Cross /> No homework help</li>
@@ -363,6 +370,7 @@ export default function HomePage() {
               <p className="mt-2 text-2xl font-extrabold">$149<span className="text-base font-medium">/mo</span></p>
               <p className="text-sm font-bold text-brand-blue">$7 to start</p>
               <ul className="mt-5 space-y-3 text-sm">
+                <li className="flex gap-2"><Check /> Same teacher, every single week</li>
                 <li className="flex gap-2"><Check /> One real teacher, every class</li>
                 <li className="flex gap-2"><Check /> Your child&rsquo;s pace</li>
                 <li className="flex gap-2"><Check /> Recordings included</li>
@@ -381,6 +389,7 @@ export default function HomePage() {
               <p className="mt-2 text-2xl font-extrabold">$640+<span className="text-base font-medium">/mo</span></p>
               <ul className="mt-5 space-y-3 text-sm text-white/70">
                 <li className="flex gap-2"><Check /> 1 student</li>
+                <li className="flex gap-2 text-white/40"><Cross /> Cancellations &amp; reschedules</li>
                 <li className="flex gap-2 text-white/40"><Cross /> No structure</li>
                 <li className="flex gap-2 text-white/40"><Cross /> Variable quality</li>
                 <li className="flex gap-2 text-white/40"><Cross /> Pay for travel &amp; idle time</li>
@@ -552,16 +561,18 @@ function GradePicker({ onStart }: { onStart: (grade: string) => void }) {
         ))}
       </select>
       {grade && (
-        <p className="mt-3 text-sm text-brand-dark/70">
-          We&rsquo;ll place them in{" "}
-          <span className="font-bold text-brand-blue">{GRADE_TO_COURSE[grade]}</span>.
+        <p className="mt-3 border-l-2 border-brand-blue bg-brand-light-blue/30 px-3 py-2 text-sm text-brand-dark">
+          Perfect — we&rsquo;ll place them in{" "}
+          <span className="font-bold text-brand-blue">{GRADE_TO_COURSE[grade]}</span>, matched to
+          their grade.
         </p>
       )}
       <button
         onClick={() => onStart(grade)}
-        className="mt-4 w-full bg-brand-green px-4 py-3 font-bold text-brand-dark transition-opacity hover:opacity-90"
+        disabled={!grade}
+        className="mt-4 w-full bg-brand-green px-4 py-3 font-bold text-brand-dark transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
       >
-        Start Your $7 Trial
+        {grade ? "Start Your $7 Trial" : "Choose a grade to start"}
       </button>
     </div>
   );
