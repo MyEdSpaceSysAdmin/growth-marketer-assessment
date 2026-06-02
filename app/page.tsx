@@ -63,6 +63,14 @@ function Check() {
   );
 }
 
+function CheckOnBlue() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-5 w-5 flex-none" aria-hidden="true">
+      <path d="M5 13l4 4L19 7" fill="none" stroke="#b1db00" strokeWidth="2" />
+    </svg>
+  );
+}
+
 function Cross() {
   return (
     <svg viewBox="0 0 24 24" className="h-5 w-5 flex-none" aria-hidden="true">
@@ -439,29 +447,35 @@ export default function HomePage() {
           <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
             The gap school doesn&rsquo;t fill — without the tutor price
           </h2>
-          <div className="mt-8 grid gap-[2px] border-2 border-brand-dark bg-brand-dark md:mt-10 md:grid-cols-3">
-            <div className="bg-brand-light-blue/20 p-6">
-              <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/60">School</p>
-              <p className="mt-2 text-2xl font-extrabold">Free</p>
-              <ul className="mt-5 space-y-3 text-sm text-brand-dark/80">
+          <div className="mt-8 grid items-start gap-4 md:mt-12 md:grid-cols-3 md:gap-5">
+            <div className="border-2 border-brand-dark bg-white p-6">
+              <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/70">School</p>
+              <p className="mt-2 text-3xl font-extrabold text-brand-dark">Free</p>
+              <p className="mt-1 text-sm text-brand-dark/60">but you&rsquo;re here for a reason</p>
+              <ul className="mt-5 space-y-3 text-sm text-brand-dark">
                 <li className="flex gap-2"><Cross /> 30 kids per class</li>
                 <li className="flex gap-2"><Cross /> Same teacher? Not guaranteed</li>
-                <li className="flex gap-2"><Cross /> Fixed pace</li>
+                <li className="flex gap-2"><Cross /> Fixed pace for everyone</li>
                 <li className="flex gap-2"><Cross /> No recordings</li>
-                <li className="flex gap-2"><Cross /> No homework help</li>
+                <li className="flex gap-2"><Cross /> No help with homework</li>
               </ul>
             </div>
-            <div className="bg-white p-6 text-brand-dark md:-my-3 md:border-x-2 md:border-brand-green">
-              <p className="text-sm font-bold uppercase tracking-widest text-brand-blue">MyEdSpace</p>
-              <p className="mt-2 text-2xl font-extrabold">$149<span className="text-base font-medium">/mo</span></p>
-              <p className="text-sm font-bold text-brand-blue">$7 to start</p>
-              <ul className="mt-5 space-y-3 text-sm">
-                <li className="flex gap-2"><Check /> Same teacher, every single week</li>
-                <li className="flex gap-2"><Check /> One real teacher, every class</li>
-                <li className="flex gap-2"><Check /> Your child&rsquo;s pace</li>
-                <li className="flex gap-2"><Check /> Recordings included</li>
-                <li className="flex gap-2"><Check /> 24/7 AI coach</li>
-                <li className="flex gap-2"><Check /> Live twice a week</li>
+
+            <div className="border-2 border-brand-dark bg-brand-blue p-6 text-white md:-mt-4 md:pb-8">
+              <span className="inline-block bg-brand-green px-2 py-1 text-xs font-extrabold uppercase tracking-widest text-brand-dark">
+                Best value
+              </span>
+              <p className="mt-3 text-sm font-bold uppercase tracking-widest text-brand-light-blue">MyEdSpace</p>
+              <p className="mt-2 text-4xl font-extrabold text-white">
+                $149<span className="text-base font-medium text-white/80">/mo</span>
+              </p>
+              <p className="text-sm font-bold text-brand-green">Just $7 to start</p>
+              <ul className="mt-5 space-y-3 text-sm font-medium text-white">
+                <li className="flex gap-2"><CheckOnBlue /> Same teacher, every single week</li>
+                <li className="flex gap-2"><CheckOnBlue /> Live twice a week</li>
+                <li className="flex gap-2"><CheckOnBlue /> Your child&rsquo;s pace</li>
+                <li className="flex gap-2"><CheckOnBlue /> Recordings included</li>
+                <li className="flex gap-2"><CheckOnBlue /> 24/7 AI homework coach</li>
               </ul>
               <button
                 onClick={() => openSignup()}
@@ -470,15 +484,19 @@ export default function HomePage() {
                 Start Your $7 Trial
               </button>
             </div>
-            <div className="bg-brand-light-blue/20 p-6">
-              <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/60">Private tutor</p>
-              <p className="mt-2 text-2xl font-extrabold">$640+<span className="text-base font-medium">/mo</span></p>
-              <ul className="mt-5 space-y-3 text-sm text-brand-dark/80">
-                <li className="flex gap-2"><Check /> 1 student</li>
+
+            <div className="border-2 border-brand-dark bg-white p-6">
+              <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/70">Private tutor</p>
+              <p className="mt-2 text-3xl font-extrabold text-brand-dark">
+                $640+<span className="text-base font-medium text-brand-dark/60">/mo</span>
+              </p>
+              <p className="mt-1 text-sm text-brand-dark/60">for a fraction of the teaching</p>
+              <ul className="mt-5 space-y-3 text-sm text-brand-dark">
+                <li className="flex gap-2"><Check /> 1-on-1 attention</li>
                 <li className="flex gap-2"><Cross /> Cancellations &amp; reschedules</li>
-                <li className="flex gap-2"><Cross /> No structure</li>
-                <li className="flex gap-2"><Cross /> Variable quality</li>
-                <li className="flex gap-2"><Cross /> Pay for travel &amp; idle time</li>
+                <li className="flex gap-2"><Cross /> No set curriculum</li>
+                <li className="flex gap-2"><Cross /> Quality varies wildly</li>
+                <li className="flex gap-2"><Cross /> Paying for travel &amp; idle time</li>
               </ul>
             </div>
           </div>
