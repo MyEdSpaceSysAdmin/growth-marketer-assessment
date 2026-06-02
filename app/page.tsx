@@ -88,27 +88,71 @@ function Stars() {
   );
 }
 
-function GradeChart() {
+function HeroMotif() {
   return (
-    <svg viewBox="0 0 320 200" className="h-auto w-full" role="img" aria-label="A line chart showing a math grade rising over time">
-      <line x1="40" y1="20" x2="40" y2="170" stroke="#101626" strokeWidth="2" />
-      <line x1="40" y1="170" x2="300" y2="170" stroke="#101626" strokeWidth="2" />
-      <polyline
-        points="40,150 100,140 160,110 220,70 290,30"
+    <svg
+      viewBox="0 0 400 400"
+      className="h-full w-full"
+      preserveAspectRatio="xMidYMid slice"
+      aria-hidden="true"
+    >
+      <g stroke="#ffffff" strokeWidth="1" opacity="0.12">
+        <line x1="0" y1="80" x2="400" y2="80" />
+        <line x1="0" y1="160" x2="400" y2="160" />
+        <line x1="0" y1="240" x2="400" y2="240" />
+        <line x1="0" y1="320" x2="400" y2="320" />
+        <line x1="80" y1="0" x2="80" y2="400" />
+        <line x1="160" y1="0" x2="160" y2="400" />
+        <line x1="240" y1="0" x2="240" y2="400" />
+        <line x1="320" y1="0" x2="320" y2="400" />
+      </g>
+      <path
+        d="M40 360 Q200 -40 360 360"
         fill="none"
-        stroke="#3533ff"
+        stroke="#b1db00"
         strokeWidth="3"
-        strokeLinecap="square"
-        strokeLinejoin="miter"
+        opacity="0.35"
       />
-      <circle cx="40" cy="150" r="5" fill="#3533ff" />
-      <circle cx="100" cy="140" r="5" fill="#3533ff" />
-      <circle cx="160" cy="110" r="5" fill="#3533ff" />
-      <circle cx="220" cy="70" r="5" fill="#3533ff" />
-      <circle cx="290" cy="30" r="7" fill="#b1db00" stroke="#101626" strokeWidth="2" />
-      <text x="40" y="190" fill="#101626" fontSize="11" fontWeight="bold" textAnchor="middle">Week 1</text>
-      <text x="290" y="190" fill="#101626" fontSize="11" fontWeight="bold" textAnchor="middle">Week 8</text>
-      <text x="298" y="22" fill="#101626" fontSize="13" fontWeight="bold" textAnchor="end">A</text>
+      <circle cx="120" cy="150" r="5" fill="#a3e1f0" opacity="0.5" />
+      <circle cx="280" cy="150" r="5" fill="#a3e1f0" opacity="0.5" />
+      <circle cx="200" cy="60" r="6" fill="#b1db00" opacity="0.5" />
+    </svg>
+  );
+}
+
+function BuildBlocks() {
+  // Each lesson builds on the last — stepped blocks rising, labelled by concept, no grade/outcome claim.
+  const steps = [
+    { label: "Foundations", h: 50 },
+    { label: "Core skills", h: 90 },
+    { label: "Fluency", h: 130 },
+    { label: "Exam-ready", h: 170 },
+  ];
+  return (
+    <svg viewBox="0 0 320 210" className="h-auto w-full" role="img" aria-label="Stepped blocks showing how each topic builds on the last">
+      <line x1="20" y1="190" x2="300" y2="190" stroke="#101626" strokeWidth="2" />
+      {steps.map((s, i) => {
+        const x = 30 + i * 70;
+        const y = 190 - s.h;
+        const isLast = i === steps.length - 1;
+        return (
+          <g key={s.label}>
+            <rect
+              x={x}
+              y={y}
+              width="56"
+              height={s.h}
+              fill={isLast ? "#b1db00" : "#3533ff"}
+              opacity={isLast ? 1 : 0.55 + i * 0.15}
+              stroke="#101626"
+              strokeWidth="2"
+            />
+            <text x={x + 28} y="205" fill="#101626" fontSize="9" fontWeight="bold" textAnchor="middle">
+              {s.label}
+            </text>
+          </g>
+        );
+      })}
     </svg>
   );
 }
@@ -146,8 +190,11 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="bg-brand-blue text-white">
-        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 sm:px-5 md:grid-cols-[1.05fr_1fr] md:gap-10 md:py-16">
+      <section className="relative overflow-hidden bg-brand-blue text-white">
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/2 max-w-xl" aria-hidden="true">
+          <HeroMotif />
+        </div>
+        <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 sm:px-5 md:grid-cols-[1.05fr_1fr] md:gap-10 md:py-16">
           <div>
             <p className="mb-4 inline-block border-2 border-white/40 px-3 py-1 text-xs font-bold uppercase tracking-widest text-white">
               Live Online Math · Grades 4&ndash;12
@@ -185,7 +232,13 @@ export default function HomePage() {
 
       <section className="bg-white">
         <div className="mx-auto max-w-5xl px-4 py-12 sm:px-5 md:py-16">
-          <div className="grid grid-cols-2 divide-x-2 divide-y-2 divide-brand-dark border-2 border-brand-dark sm:grid-cols-4 sm:divide-y-0">
+          <p className="text-center text-sm font-bold uppercase tracking-widest text-brand-blue">
+            Trusted by families worldwide
+          </p>
+          <h2 className="mx-auto mt-2 max-w-2xl text-center text-2xl font-extrabold tracking-tight sm:text-3xl">
+            21,000+ students. One reason they stay: it works.
+          </h2>
+          <div className="mt-8 grid grid-cols-2 divide-x-2 divide-y-2 divide-brand-dark border-2 border-brand-dark sm:grid-cols-4 sm:divide-y-0">
             {[
               ["21,000+", "Students taught"],
               ["95%", "Parent satisfaction"],
@@ -341,13 +394,13 @@ export default function HomePage() {
           </div>
           <div className="border-2 border-brand-green bg-white p-5 sm:p-6">
             <p className="text-xs font-bold uppercase tracking-widest text-brand-blue">
-              The shift parents see
+              How learning builds here
             </p>
             <div className="mt-3">
-              <GradeChart />
+              <BuildBlocks />
             </div>
             <p className="mt-2 text-sm font-medium text-brand-dark/70">
-              Steady, structured progress — not a one-off cram.
+              Every topic builds on the last — structured, not a one-off cram.
             </p>
           </div>
         </div>
@@ -413,14 +466,14 @@ export default function HomePage() {
           </h2>
           <div className="mt-8 grid gap-[2px] border-2 border-brand-dark bg-brand-dark md:mt-10 md:grid-cols-3">
             <div className="bg-brand-light-blue/20 p-6">
-              <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/50">School</p>
+              <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/60">School</p>
               <p className="mt-2 text-2xl font-extrabold">Free</p>
-              <ul className="mt-5 space-y-3 text-sm text-brand-dark/70">
-                <li className="flex gap-2 text-brand-dark/40"><Cross /> 30 kids per class</li>
-                <li className="flex gap-2 text-brand-dark/40"><Cross /> Same teacher? Not guaranteed</li>
-                <li className="flex gap-2 text-brand-dark/40"><Cross /> Fixed pace</li>
-                <li className="flex gap-2 text-brand-dark/40"><Cross /> No recordings</li>
-                <li className="flex gap-2 text-brand-dark/40"><Cross /> No homework help</li>
+              <ul className="mt-5 space-y-3 text-sm text-brand-dark/80">
+                <li className="flex gap-2"><Cross /> 30 kids per class</li>
+                <li className="flex gap-2"><Cross /> Same teacher? Not guaranteed</li>
+                <li className="flex gap-2"><Cross /> Fixed pace</li>
+                <li className="flex gap-2"><Cross /> No recordings</li>
+                <li className="flex gap-2"><Cross /> No homework help</li>
               </ul>
             </div>
             <div className="bg-white p-6 text-brand-dark md:-my-3 md:border-x-2 md:border-brand-green">
@@ -443,14 +496,14 @@ export default function HomePage() {
               </button>
             </div>
             <div className="bg-brand-light-blue/20 p-6">
-              <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/50">Private tutor</p>
+              <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/60">Private tutor</p>
               <p className="mt-2 text-2xl font-extrabold">$640+<span className="text-base font-medium">/mo</span></p>
-              <ul className="mt-5 space-y-3 text-sm text-brand-dark/70">
+              <ul className="mt-5 space-y-3 text-sm text-brand-dark/80">
                 <li className="flex gap-2"><Check /> 1 student</li>
-                <li className="flex gap-2 text-brand-dark/40"><Cross /> Cancellations &amp; reschedules</li>
-                <li className="flex gap-2 text-brand-dark/40"><Cross /> No structure</li>
-                <li className="flex gap-2 text-brand-dark/40"><Cross /> Variable quality</li>
-                <li className="flex gap-2 text-brand-dark/40"><Cross /> Pay for travel &amp; idle time</li>
+                <li className="flex gap-2"><Cross /> Cancellations &amp; reschedules</li>
+                <li className="flex gap-2"><Cross /> No structure</li>
+                <li className="flex gap-2"><Cross /> Variable quality</li>
+                <li className="flex gap-2"><Cross /> Pay for travel &amp; idle time</li>
               </ul>
             </div>
           </div>
@@ -636,10 +689,10 @@ function GradePicker({ onStart }: { onStart: (grade: string) => void }) {
         className={
           grade
             ? "mt-4 w-full bg-brand-green px-4 py-4 text-base font-bold text-brand-dark transition-opacity hover:opacity-90"
-            : "mt-4 w-full cursor-not-allowed border-2 border-brand-dark/30 bg-white px-4 py-4 text-base font-bold text-brand-dark/40"
+            : "mt-4 w-full cursor-not-allowed border-2 border-dashed border-brand-dark/30 bg-white px-4 py-4 text-sm font-semibold text-brand-dark/50"
         }
       >
-        {grade ? "Start My $7 Trial" : "Find My Child's Class"}
+        {grade ? "Start My $7 Trial →" : "↑ Select a grade to continue"}
       </button>
     </div>
   );
