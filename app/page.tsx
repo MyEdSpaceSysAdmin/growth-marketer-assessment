@@ -155,21 +155,21 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="bg-brand-light-blue/30 text-brand-dark">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-5 md:grid-cols-2 md:items-center md:gap-12 md:py-20">
+      <section className="bg-brand-blue text-white">
+        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 sm:px-5 md:grid-cols-2 md:gap-6 md:py-16">
           <div>
-            <p className="mb-4 inline-block border-2 border-brand-blue px-3 py-1 text-xs font-bold uppercase tracking-widest text-brand-blue">
+            <p className="mb-4 inline-block border-2 border-white/40 px-3 py-1 text-xs font-bold uppercase tracking-widest text-white">
               Live Online Math · Grades 4&ndash;12
             </p>
             <h1 className="text-[2.1rem] font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
               School moves too fast. Tutors didn&rsquo;t stick.
-              <span className="text-brand-blue"> This is the math help that works — try it for $7.</span>
+              <span className="text-brand-green"> This is the math help that works — try it for $7.</span>
             </h1>
-            <p className="mt-5 max-w-md text-base text-brand-dark/70 sm:text-lg">
+            <p className="mt-5 max-w-md text-base text-white/85 sm:text-lg">
               For grade 4&ndash;12 students who need more than school gives them. Live class twice a
               week, same teacher every time — for a fraction of a tutor&rsquo;s price.
             </p>
-            <div className="mt-6 border-2 border-brand-green bg-white p-5 sm:p-6">
+            <div className="mt-6 border-2 border-brand-green bg-white p-5 text-brand-dark sm:p-6">
               <p className="text-sm font-bold uppercase tracking-wide text-brand-blue">
                 Let&rsquo;s find your child&rsquo;s class
               </p>
@@ -187,7 +187,7 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
-            <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-brand-dark/70">
+            <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-white/85">
               <span className="flex items-center gap-1.5">
                 <Stars /> 4.8 &ldquo;Excellent&rdquo;
               </span>
@@ -196,19 +196,13 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="order-first md:order-last">
-            <div className="overflow-hidden border-2 border-brand-dark">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/assets/img/eddie_hero.webp"
-                alt="Eddie Kang teaching a live MyEdSpace math class"
-                className="aspect-[5/4] w-full object-cover"
-              />
-            </div>
-            <p className="mt-3 text-sm text-brand-dark/70">
-              <span className="font-bold text-brand-dark">Eddie Kang</span> — UCLA Pure Math, perfect
-              SAT 800, 9+ yrs teaching California math.
-            </p>
+          <div className="order-first self-end md:order-last">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/img/eddie_hero.webp"
+              alt="Eddie Kang, MyEdSpace lead math teacher"
+              className="mx-auto w-full max-w-sm md:max-w-none"
+            />
           </div>
         </div>
       </section>
