@@ -549,14 +549,14 @@ export default function HomePage() {
           />
           {/* Desktop: true comparison table, MyEdSpace centre column elevated */}
           <div className="mt-10 hidden md:block">
-            <div className="grid grid-cols-[1.6fr_1fr_1.1fr_1fr]">
+            <div className="grid grid-cols-[1.6fr_1fr_1.1fr_1fr] border-l-2 border-t-2 border-brand-dark">
               {/* Header row */}
-              <div />
-              <div className="border-2 border-brand-dark bg-white px-4 pb-4 pt-5 text-center">
+              <div className="border-b-2 border-r-2 border-brand-dark bg-white" />
+              <div className="border-b-2 border-r-2 border-brand-dark bg-white px-4 pb-4 pt-5 text-center">
                 <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/60">School</p>
                 <p className="mt-1 text-2xl font-extrabold text-brand-dark">Free</p>
               </div>
-              <div className="-mt-4 border-2 border-brand-dark bg-brand-blue px-4 pb-5 pt-5 text-center text-white">
+              <div className="border-b-2 border-r-2 border-brand-dark bg-brand-blue px-4 pb-5 pt-5 text-center text-white">
                 <span className="inline-block bg-brand-green px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-widest text-brand-dark">
                   Best value
                 </span>
@@ -566,7 +566,7 @@ export default function HomePage() {
                 </p>
                 <p className="text-xs font-bold text-brand-green">$7 to start</p>
               </div>
-              <div className="border-2 border-brand-dark bg-white px-4 pb-4 pt-5 text-center">
+              <div className="border-b-2 border-r-2 border-brand-dark bg-white px-4 pb-4 pt-5 text-center">
                 <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/60">Private tutor</p>
                 <p className="mt-1 text-2xl font-extrabold text-brand-dark">$640+<span className="text-sm font-medium text-brand-dark/60">/mo</span></p>
               </div>
@@ -581,27 +581,27 @@ export default function HomePage() {
                 ["24/7 AI homework coach", true, false, false],
                 ["Structured exam-ready curriculum", true, "varies", true],
                 ["Small-group learning", true, false, false],
-              ].map(([feature, mes, tutor, school], i) => (
+              ].map(([feature, mes, tutor, school]) => (
                 <div key={feature as string} className="contents">
-                  <div className={`flex items-center border-2 border-t-0 border-r-0 border-brand-dark px-4 py-3 text-sm font-semibold ${i === 0 ? "" : ""}`}>
+                  <div className="flex items-center border-b-2 border-r-2 border-brand-dark bg-white px-4 py-3 text-sm font-semibold">
                     {feature}
                   </div>
-                  <div className="flex items-center justify-center border-2 border-t-0 border-r-0 border-brand-dark bg-white px-4 py-3">
+                  <div className="flex items-center justify-center border-b-2 border-r-2 border-brand-dark bg-white px-4 py-3">
                     <Cell v={school} />
                   </div>
-                  <div className="flex items-center justify-center border-2 border-t-0 border-brand-dark bg-brand-blue px-4 py-3">
+                  <div className="flex items-center justify-center border-b-2 border-r-2 border-brand-dark bg-brand-blue px-4 py-3">
                     <Cell v={mes} onBlue />
                   </div>
-                  <div className="flex items-center justify-center border-2 border-t-0 border-l-0 border-brand-dark bg-white px-4 py-3">
+                  <div className="flex items-center justify-center border-b-2 border-r-2 border-brand-dark bg-white px-4 py-3">
                     <Cell v={tutor} />
                   </div>
                 </div>
               ))}
 
               {/* CTA row under MyEdSpace */}
-              <div />
-              <div className="border-2 border-t-0 border-r-0 border-brand-dark bg-white" />
-              <div className="border-2 border-t-0 border-brand-dark bg-brand-blue p-4">
+              <div className="border-b-2 border-r-2 border-brand-dark bg-white" />
+              <div className="border-b-2 border-r-2 border-brand-dark bg-white" />
+              <div className="border-b-2 border-r-2 border-brand-dark bg-brand-blue p-4">
                 <button
                   onClick={() => openSignup()}
                   className="w-full bg-brand-green px-4 py-3 text-sm font-bold text-brand-dark transition-opacity hover:opacity-90"
@@ -609,7 +609,7 @@ export default function HomePage() {
                   Start Your $7 Trial →
                 </button>
               </div>
-              <div className="border-2 border-t-0 border-l-0 border-brand-dark bg-white" />
+              <div className="border-b-2 border-r-2 border-brand-dark bg-white" />
             </div>
           </div>
 
