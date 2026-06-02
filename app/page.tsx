@@ -113,25 +113,6 @@ function HeroMotif() {
   );
 }
 
-// Decorative offset-block cluster (the MES checkerboard motif) for section corners.
-// variant controls the palette so it reads on either light or blue grounds.
-function BlockCluster({ variant = "light" }: { variant?: "light" | "blue" }) {
-  const fills =
-    variant === "blue"
-      ? ["#ffffff", "#b1db00", "#a3e1f0"]
-      : ["#3533ff", "#b1db00", "#a3e1f0"];
-  const op = variant === "blue" ? [0.08, 0.16, 0.14] : [0.07, 0.14, 0.16];
-  return (
-    <svg viewBox="0 0 160 160" className="h-full w-full" aria-hidden="true">
-      <rect x="0" y="0" width="52" height="52" fill={fills[0]} opacity={op[0]} />
-      <rect x="56" y="56" width="52" height="52" fill={fills[2]} opacity={op[2]} />
-      <rect x="112" y="0" width="44" height="44" fill={fills[1]} opacity={op[1]} />
-      <rect x="0" y="112" width="44" height="44" fill={fills[1]} opacity={op[1]} />
-      <rect x="112" y="112" width="44" height="44" fill={fills[2]} opacity={op[2]} />
-    </svg>
-  );
-}
-
 function StepArrow() {
   return (
     <svg viewBox="0 0 40 24" className="h-5 w-8 flex-none" aria-hidden="true">
@@ -246,11 +227,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden border-b-2 border-brand-dark bg-white">
-        <div className="pointer-events-none absolute right-0 top-0 hidden h-40 w-40 md:block" aria-hidden="true">
-          <BlockCluster variant="light" />
-        </div>
-        <div className="relative mx-auto max-w-4xl px-4 py-14 sm:px-5 md:py-20">
+      <section className="border-b-2 border-brand-dark bg-white">
+        <div className="mx-auto max-w-4xl px-4 py-14 sm:px-5 md:py-20">
           <p className="text-center text-sm font-bold uppercase tracking-widest text-brand-blue">
             How it works
           </p>
@@ -370,8 +348,8 @@ export default function HomePage() {
               a tutor.
             </p>
           </div>
-          <div className="border-2 border-brand-green bg-white p-5 sm:p-6">
-            <p className="text-xs font-bold uppercase tracking-widest text-brand-blue">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest text-brand-light-blue">
               How learning builds here
             </p>
             <div className="mt-4 space-y-2">
@@ -383,31 +361,28 @@ export default function HomePage() {
               ].map(([title, sub], i) => (
                 <div
                   key={title}
-                  className="flex items-center gap-3 border-2 border-brand-dark bg-brand-light-blue/20 p-3"
+                  className="flex items-center gap-3 border-2 border-white/25 bg-white/5 p-3"
                   style={{ marginLeft: `${i * 14}px` }}
                 >
-                  <span className="flex h-7 w-7 flex-none items-center justify-center bg-brand-blue text-sm font-extrabold text-white">
+                  <span className="flex h-7 w-7 flex-none items-center justify-center bg-brand-green text-sm font-extrabold text-brand-dark">
                     {i + 1}
                   </span>
                   <div>
-                    <p className="text-sm font-bold text-brand-dark">{title}</p>
-                    <p className="text-xs text-brand-dark/70">{sub}</p>
+                    <p className="text-sm font-bold text-white">{title}</p>
+                    <p className="text-xs text-white/75">{sub}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <p className="mt-4 text-sm font-medium text-brand-dark/70">
+            <p className="mt-4 text-sm font-medium text-white/75">
               Every topic builds on the last — structured, not a one-off cram.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="relative overflow-hidden border-y-2 border-brand-dark bg-white">
-        <div className="pointer-events-none absolute bottom-0 left-0 hidden h-40 w-40 md:block" aria-hidden="true">
-          <BlockCluster variant="light" />
-        </div>
-        <div className="relative mx-auto max-w-6xl px-4 py-14 sm:px-5 md:py-20">
+      <section className="border-y-2 border-brand-dark bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-5 md:py-20">
           <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
             Everything included, one price
           </h2>
@@ -594,11 +569,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden border-b-2 border-brand-dark bg-white">
-        <div className="pointer-events-none absolute right-0 top-0 hidden h-36 w-36 md:block" aria-hidden="true">
-          <BlockCluster variant="light" />
-        </div>
-        <div className="relative mx-auto max-w-3xl px-4 py-14 sm:px-5 md:py-20">
+      <section className="border-b-2 border-brand-dark bg-white">
+        <div className="mx-auto max-w-3xl px-4 py-14 sm:px-5 md:py-20">
           <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
             Questions parents ask first
           </h2>
@@ -616,14 +588,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-brand-blue text-white">
-        <div className="pointer-events-none absolute left-0 top-0 hidden h-44 w-44 md:block" aria-hidden="true">
-          <BlockCluster variant="blue" />
-        </div>
-        <div className="pointer-events-none absolute bottom-0 right-0 hidden h-44 w-44 md:block" aria-hidden="true">
-          <BlockCluster variant="blue" />
-        </div>
-        <div className="relative mx-auto max-w-3xl px-4 py-14 text-center sm:px-5 md:py-20">
+      <section className="bg-brand-blue text-white">
+        <div className="mx-auto max-w-3xl px-4 py-14 text-center sm:px-5 md:py-20">
           <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
             Same teacher. Same time. Every week until it clicks.
           </h2>
