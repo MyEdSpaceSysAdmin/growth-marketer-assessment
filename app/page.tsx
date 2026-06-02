@@ -22,8 +22,10 @@ type Review = {
 
 const reviews = reviewsData as Review[];
 
-const GRADES = ["6", "7", "8", "9", "10", "11", "12"] as const;
+const GRADES = ["4", "5", "6", "7", "8", "9", "10", "11", "12"] as const;
 const GRADE_TO_COURSE: Record<string, string> = {
+  "4": "Elementary Math",
+  "5": "Elementary Math",
   "6": "Pre-Algebra",
   "7": "Pre-Algebra",
   "8": "Algebra I",
@@ -33,6 +35,7 @@ const GRADE_TO_COURSE: Record<string, string> = {
   "12": "Algebra II",
 };
 const COURSE_SCHEDULE: Record<string, string> = {
+  "Elementary Math": "Mon & Wed · 6:00 PM PT · 45 min",
   "Pre-Algebra": "Mon & Wed · 5:00 PM PT · 60 min",
   "Algebra I": "Tue & Thu · 6:00 PM PT · 60 min",
   "Geometry": "Tue & Thu · 5:00 PM PT · 60 min",
@@ -156,14 +159,14 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-5 md:grid-cols-2 md:items-center md:gap-12 md:py-20">
           <div>
             <p className="mb-4 inline-block border-2 border-brand-blue px-3 py-1 text-xs font-bold uppercase tracking-widest text-brand-blue">
-              Live Online Math · Grades 6&ndash;12
+              Live Online Math · Grades 4&ndash;12
             </p>
             <h1 className="text-[2.1rem] font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
               School moves too fast. Tutors didn&rsquo;t stick.
               <span className="text-brand-blue"> This is the math help that works — try it for $7.</span>
             </h1>
             <p className="mt-5 max-w-md text-base text-brand-dark/70 sm:text-lg">
-              For grade 6&ndash;12 students who need more than school gives them. Live class twice a
+              For grade 4&ndash;12 students who need more than school gives them. Live class twice a
               week, same teacher every time — for a fraction of a tutor&rsquo;s price.
             </p>
             <div className="mt-6 border-2 border-brand-green bg-white p-5 sm:p-6">
@@ -194,28 +197,18 @@ export default function HomePage() {
           </div>
 
           <div className="order-first md:order-last">
-            <div className="border-2 border-brand-dark bg-white">
+            <div className="overflow-hidden border-2 border-brand-dark">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/assets/img/eddie_5.webp"
-                alt="Eddie Kang, MyEdSpace lead math teacher"
-                className="aspect-[4/5] w-full object-cover object-top"
+                src="/assets/img/eddie_hero.webp"
+                alt="Eddie Kang teaching a live MyEdSpace math class"
+                className="aspect-[5/4] w-full object-cover"
               />
-              <div className="flex items-center gap-3 border-t-2 border-brand-dark p-4">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/img/adam_1.webp"
-                  alt="Adam Gilbert"
-                  className="h-12 w-12 flex-none border-2 border-brand-dark object-cover object-top"
-                />
-                <div>
-                  <p className="text-sm font-bold text-brand-dark">Eddie Kang &amp; Adam Gilbert</p>
-                  <p className="text-xs text-brand-dark/70">
-                    UCLA &amp; Brown · 9+ and 7+ yrs teaching US math
-                  </p>
-                </div>
-              </div>
             </div>
+            <p className="mt-3 text-sm text-brand-dark/70">
+              <span className="font-bold text-brand-dark">Eddie Kang</span> — UCLA Pure Math, perfect
+              SAT 800, 9+ yrs teaching California math.
+            </p>
           </div>
         </div>
       </section>
@@ -586,7 +579,7 @@ export default function HomePage() {
               items={[
                 ["What if my child needs 1-on-1 attention?", "Classes are small and interactive, and Eddie answers questions live. Between lessons, the 24/7 AI coach gives unlimited one-on-one help — and every class is recorded to rewatch."],
                 ["How does the cost compare to tutoring?", "A private tutor runs $640+/month. MyEdSpace is $149/month for live classes twice a week, recordings, workbooks and the AI coach — and you start for $7."],
-                ["What grades and courses do you teach?", "Pre-Algebra, Algebra I, Geometry and Algebra II, built toward PSAT, SAT, ACT and AP. Pick your child's grade and we'll place them in the right course — full curriculum above."],
+                ["What grades and courses do you teach?", "Elementary Math, Pre-Algebra, Algebra I, Geometry and Algebra II, built toward PSAT, SAT, ACT and AP. Pick your child's grade and we'll place them in the right course — full curriculum above."],
                 ["What if my child misses a class?", "Every live class is recorded and available to rewatch any time, so a missed session never means falling behind."],
                 ["Is there a guarantee?", "Yes — a 30-day money-back guarantee. Start for $7, and if it isn't right for your child, you're covered."],
               ]}
