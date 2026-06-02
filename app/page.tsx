@@ -32,6 +32,12 @@ const GRADE_TO_COURSE: Record<string, string> = {
   "11": "Algebra II",
   "12": "Algebra II",
 };
+const COURSE_SCHEDULE: Record<string, string> = {
+  "Pre-Algebra": "Mon & Wed · 5:00 PM PT · 60 min",
+  "Algebra I": "Tue & Thu · 6:00 PM PT · 60 min",
+  "Geometry": "Tue & Thu · 5:00 PM PT · 60 min",
+  "Algebra II": "Mon & Wed · 5:00 PM PT · 60 min",
+};
 
 function Star() {
   return (
@@ -88,6 +94,56 @@ function Stars() {
   );
 }
 
+function GradeChart() {
+  return (
+    <svg viewBox="0 0 320 200" className="h-auto w-full" role="img" aria-label="A line chart showing a math grade rising over time">
+      <line x1="40" y1="20" x2="40" y2="170" stroke="#101626" strokeWidth="2" />
+      <line x1="40" y1="170" x2="300" y2="170" stroke="#101626" strokeWidth="2" />
+      <polyline
+        points="40,150 100,140 160,110 220,70 290,30"
+        fill="none"
+        stroke="#3533ff"
+        strokeWidth="4"
+        strokeLinecap="square"
+        strokeLinejoin="miter"
+      />
+      <circle cx="40" cy="150" r="5" fill="#3533ff" />
+      <circle cx="100" cy="140" r="5" fill="#3533ff" />
+      <circle cx="160" cy="110" r="5" fill="#3533ff" />
+      <circle cx="220" cy="70" r="5" fill="#3533ff" />
+      <circle cx="290" cy="30" r="7" fill="#b1db00" stroke="#101626" strokeWidth="2" />
+      <text x="40" y="190" fill="#101626" fontSize="11" fontWeight="bold" textAnchor="middle">Week 1</text>
+      <text x="290" y="190" fill="#101626" fontSize="11" fontWeight="bold" textAnchor="middle">Week 8</text>
+      <text x="298" y="22" fill="#101626" fontSize="13" fontWeight="bold" textAnchor="end">A</text>
+    </svg>
+  );
+}
+
+function MathMotif() {
+  return (
+    <svg viewBox="0 0 200 200" className="h-full w-full" aria-hidden="true">
+      <line x1="0" y1="50" x2="200" y2="50" stroke="#a3e1f0" strokeWidth="1" opacity="0.4" />
+      <line x1="0" y1="100" x2="200" y2="100" stroke="#a3e1f0" strokeWidth="1" opacity="0.4" />
+      <line x1="0" y1="150" x2="200" y2="150" stroke="#a3e1f0" strokeWidth="1" opacity="0.4" />
+      <line x1="50" y1="0" x2="50" y2="200" stroke="#a3e1f0" strokeWidth="1" opacity="0.4" />
+      <line x1="100" y1="0" x2="100" y2="200" stroke="#a3e1f0" strokeWidth="1" opacity="0.4" />
+      <line x1="150" y1="0" x2="150" y2="200" stroke="#a3e1f0" strokeWidth="1" opacity="0.4" />
+      <path d="M20 170 Q100 -20 180 170" fill="none" stroke="#b1db00" strokeWidth="3" opacity="0.7" />
+      <circle cx="50" cy="120" r="4" fill="#a3e1f0" />
+      <circle cx="150" cy="120" r="4" fill="#a3e1f0" />
+      <circle cx="100" cy="50" r="4" fill="#b1db00" />
+    </svg>
+  );
+}
+
+function StepArrow() {
+  return (
+    <svg viewBox="0 0 40 24" className="h-5 w-8 flex-none" aria-hidden="true">
+      <path d="M4 12h28M24 4l8 8-8 8" fill="none" stroke="#3533ff" strokeWidth="2.5" />
+    </svg>
+  );
+}
+
 export default function HomePage() {
   const [signupOpen, setSignupOpen] = useState(false);
   const [presetGrade, setPresetGrade] = useState<string>("");
@@ -125,9 +181,8 @@ export default function HomePage() {
               <span className="text-brand-green"> This is the math help that works — try it for $7.</span>
             </h1>
             <p className="mt-5 max-w-md text-base text-white/80 sm:text-lg">
-              For grade 6&ndash;12 students who need more than school is giving them: live math
-              class twice a week with a top US teacher — same face every time, in your timezone.
-              Real teaching that builds week on week, for a fraction of a tutor&rsquo;s price.
+              For grade 6&ndash;12 students who need more than school gives them. Live class twice a
+              week, same teacher every time — for a fraction of a tutor&rsquo;s price.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-white/80">
               <span className="flex items-center gap-1.5">
@@ -138,8 +193,11 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="border-2 border-brand-green bg-white p-5 text-brand-dark sm:p-7">
-            <p className="text-sm font-bold uppercase tracking-wide text-brand-blue">
+          <div className="relative border-2 border-brand-green bg-white p-5 text-brand-dark sm:p-7">
+            <div className="pointer-events-none absolute right-0 top-0 h-24 w-24 opacity-50">
+              <MathMotif />
+            </div>
+            <p className="relative text-sm font-bold uppercase tracking-wide text-brand-blue">
               Let&rsquo;s find your child&rsquo;s class
             </p>
             <p className="mt-1 text-sm text-brand-dark/70">
@@ -156,6 +214,22 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="border-b-2 border-brand-dark bg-white">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-px border-y-2 border-brand-dark bg-brand-dark sm:grid-cols-4">
+          {[
+            ["21,000+", "Students taught"],
+            ["95%", "Parent satisfaction"],
+            ["4.8★", "Average rating"],
+            ["83%", "Improved confidence"],
+          ].map(([stat, label]) => (
+            <div key={label} className="bg-white p-6 text-center sm:p-8">
+              <p className="text-3xl font-extrabold text-brand-blue sm:text-4xl">{stat}</p>
+              <p className="mt-1 text-xs font-bold uppercase tracking-widest text-brand-dark/60">{label}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -188,27 +262,30 @@ export default function HomePage() {
             <p>
               Here&rsquo;s what tutoring never gave you: a teacher who shows up at the same time
               every week, a plan that goes somewhere, and momentum that doesn&rsquo;t reset every
-              session. Your child joins a live class twice a week, grouped by grade and taught by
-              the same expert teacher every time — a real classroom rhythm, online, where they ask
-              questions and work problems as they go. Not recorded video. Not a stranger each month.
-            </p>
-            <p>
-              Each lesson builds deliberately on the last, so your child isn&rsquo;t memorising
-              steps — they&rsquo;re building a foundation they can stand on. Between classes,
-              targeted practice reinforces what they learned, and a 24/7 AI coach is there for
-              homework help whenever they get stuck. You see the progress without having to teach
-              the math yourself.
+              session. Not recorded video. Not a stranger each month.
             </p>
           </div>
-          <div className="mt-8 grid gap-px border-2 border-brand-dark bg-brand-dark sm:grid-cols-3">
+          <div className="mt-8 grid items-stretch gap-4 sm:grid-cols-[1fr_auto_1fr_auto_1fr]">
             {[
-              ["Live, twice a week", "Real teaching in real time, grouped by your child's grade."],
-              ["Builds week on week", "Every lesson connects to the last. No gaps, no cramming."],
-              ["Support between classes", "Practice that reinforces, plus a 24/7 AI coach for stuck moments."],
-            ].map(([t, b]) => (
-              <div key={t} className="bg-white p-5">
-                <p className="font-bold">{t}</p>
-                <p className="mt-2 text-sm text-brand-dark/70">{b}</p>
+              ["1", "Live, twice a week", "Real teaching in real time, grouped by your child's grade."],
+              ["2", "Builds week on week", "Every lesson connects to the last. No gaps, no cramming."],
+              ["3", "Support between classes", "Practice that reinforces, plus a 24/7 AI coach for stuck moments."],
+            ].map(([num, t, b], i) => (
+              <div key={t} className="contents">
+                <div className="border-2 border-brand-dark bg-white p-5">
+                  <span className="flex h-9 w-9 items-center justify-center bg-brand-blue text-base font-extrabold text-white">
+                    {num}
+                  </span>
+                  <p className="mt-3 font-bold">{t}</p>
+                  <p className="mt-2 text-sm text-brand-dark/70">{b}</p>
+                </div>
+                {i < 2 && (
+                  <div className="flex items-center justify-center py-1 sm:py-0">
+                    <span className="rotate-90 sm:rotate-0">
+                      <StepArrow />
+                    </span>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -279,19 +356,32 @@ export default function HomePage() {
       </section>
 
       <section className="bg-brand-blue text-white">
-        <div className="mx-auto max-w-4xl px-4 py-14 text-center sm:px-5 md:py-20">
-          <p className="text-sm font-bold uppercase tracking-widest text-brand-light-blue">
-            Why MyEdSpace
-          </p>
-          <h2 className="mt-3 text-2xl font-extrabold tracking-tight sm:text-4xl">
-            A real teacher and a real plan — not a tutor you hope shows up.
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
-            School moves too fast for 30 kids at once. Tutors cost a fortune and still leave gaps
-            between sessions. MyEdSpace gives your child a top US teacher, the same one every week,
-            a structured course that builds toward the exams that matter, and help between classes
-            whenever they&rsquo;re stuck — all for less than a few hours with a private tutor.
-          </p>
+        <div className="mx-auto grid max-w-5xl items-center gap-8 px-4 py-14 sm:px-5 md:grid-cols-2 md:gap-12 md:py-20">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-widest text-brand-light-blue">
+              Why MyEdSpace
+            </p>
+            <h2 className="mt-3 text-2xl font-extrabold tracking-tight sm:text-4xl">
+              A real teacher and a real plan — not a tutor you hope shows up.
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-white/85 sm:text-lg">
+              School moves too fast for 30 kids at once. Tutors cost a fortune and still leave gaps.
+              MyEdSpace gives your child the same top US teacher every week, a course that builds
+              toward the exams that matter, and help between classes — for less than a few hours with
+              a tutor.
+            </p>
+          </div>
+          <div className="border-2 border-brand-green bg-white p-5 sm:p-6">
+            <p className="text-xs font-bold uppercase tracking-widest text-brand-blue">
+              The shift parents see
+            </p>
+            <div className="mt-3">
+              <GradeChart />
+            </div>
+            <p className="mt-2 text-sm font-medium text-brand-dark/70">
+              Steady, structured progress — not a one-off cram.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -561,11 +651,16 @@ function GradePicker({ onStart }: { onStart: (grade: string) => void }) {
         ))}
       </select>
       {grade && (
-        <p className="mt-3 border-l-2 border-brand-blue bg-brand-light-blue/30 px-3 py-2 text-sm text-brand-dark">
-          Perfect — we&rsquo;ll place them in{" "}
-          <span className="font-bold text-brand-blue">{GRADE_TO_COURSE[grade]}</span>, matched to
-          their grade.
-        </p>
+        <div className="mt-3 border-l-2 border-brand-blue bg-brand-light-blue/30 px-3 py-2 text-sm text-brand-dark">
+          <p>
+            Perfect — they&rsquo;ll join{" "}
+            <span className="font-bold text-brand-blue">{GRADE_TO_COURSE[grade]}</span>, matched to
+            their grade.
+          </p>
+          <p className="mt-1 text-xs font-medium text-brand-dark/70">
+            Classes: {COURSE_SCHEDULE[GRADE_TO_COURSE[grade]]}
+          </p>
+        </div>
       )}
       <button
         onClick={() => onStart(grade)}
