@@ -80,15 +80,6 @@ function Lock() {
   );
 }
 
-function Shield() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-5 w-5 flex-none" aria-hidden="true">
-      <path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z" fill="none" stroke="#3533ff" strokeWidth="2" />
-      <path d="M9 12l2 2 4-4" fill="none" stroke="#3533ff" strokeWidth="2" />
-    </svg>
-  );
-}
-
 function Stars() {
   return (
     <span className="flex" aria-label="5 out of 5 stars">
@@ -156,51 +147,50 @@ export default function HomePage() {
       </header>
 
       <section className="bg-brand-blue text-white">
-        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 sm:px-5 md:grid-cols-2 md:gap-10 md:py-16">
+        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 sm:px-5 md:grid-cols-[1.05fr_1fr] md:gap-10 md:py-16">
           <div>
             <p className="mb-4 inline-block border-2 border-white/40 px-3 py-1 text-xs font-bold uppercase tracking-widest text-white">
               Live Online Math · Grades 4&ndash;12
             </p>
             <h1 className="text-[2.1rem] font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
-              School moves too fast. Tutors didn&rsquo;t stick.
-              <span className="text-brand-green"> This is the math help that works — try it for $7.</span>
+              The math help that finally sticks — for $7.
             </h1>
             <p className="mt-5 max-w-md text-base text-white/85 sm:text-lg">
-              For grade 4&ndash;12 students who need more than school gives them. Live class twice a
-              week, same teacher every time — for a fraction of a tutor&rsquo;s price.
+              Live online classes twice a week with the same expert teacher every time. For grade
+              4&ndash;12 students who need more than school gives them.
             </p>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/assets/img/eddie_hero.webp"
-              alt="Eddie Kang, MyEdSpace lead math teacher"
-              className="mt-6 w-full max-w-md"
-            />
-            <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-white/85">
-              <span className="flex items-center gap-1.5">
-                <Stars /> 4.8 &ldquo;Excellent&rdquo;
-              </span>
-              <span>21,000+ students taught</span>
-              <span>95% parent satisfaction</span>
+            <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-medium text-white">
+              <span className="flex items-center gap-1.5"><Stars /> 4.8 rating</span>
+              <span><span className="font-extrabold">21,000+</span> students taught</span>
+              <span><span className="font-extrabold">95%</span> parent satisfaction</span>
+            </div>
+            <div className="mt-6 flex items-center gap-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/img/eddie_hero.webp"
+                alt="Eddie Kang, MyEdSpace lead math teacher"
+                className="w-32 flex-none sm:w-40"
+              />
+              <p className="text-sm text-white/85">
+                Taught by <span className="font-bold text-white">Eddie Kang</span> — UCLA Pure Math,
+                perfect SAT 800, 9+ years teaching California math.
+              </p>
             </div>
           </div>
 
-          <div className="border-2 border-brand-green bg-white p-5 text-brand-dark sm:p-7">
-            <p className="text-sm font-bold uppercase tracking-wide text-brand-blue">
-              Let&rsquo;s find your child&rsquo;s class
+          <div className="border-2 border-brand-green bg-white p-6 text-brand-dark sm:p-8">
+            <p className="text-base font-extrabold uppercase tracking-wide text-brand-blue">
+              Find your child&rsquo;s class
             </p>
             <p className="mt-1 text-sm text-brand-dark/70">
-              Tell us their grade and we&rsquo;ll place them in the right course.
+              Tell us their grade and we&rsquo;ll place them in the right course — start today for $7.
             </p>
             <GradePicker onStart={(g) => openSignup(g)} />
-            <div className="mt-4 flex items-start gap-2 border-2 border-brand-dark bg-brand-light-blue/30 p-3">
-              <Shield />
-              <div>
-                <p className="text-sm font-bold text-brand-dark">$7 for 7 days. Cancel anytime.</p>
-                <p className="text-xs text-brand-dark/70">
-                  Backed by a 30-day money-back guarantee — try it risk-free.
-                </p>
-              </div>
-            </div>
+            <ul className="mt-5 space-y-2 text-sm">
+              <li className="flex items-center gap-2"><Check /> Same expert teacher every week</li>
+              <li className="flex items-center gap-2"><Check /> Live twice a week, recordings included</li>
+              <li className="flex items-center gap-2"><Check /> Cancel anytime · 30-day money-back guarantee</li>
+            </ul>
           </div>
         </div>
       </section>
@@ -655,9 +645,13 @@ function GradePicker({ onStart }: { onStart: (grade: string) => void }) {
       <button
         onClick={() => onStart(grade)}
         disabled={!grade}
-        className="mt-4 w-full bg-brand-green px-4 py-3 font-bold text-brand-dark transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+        className={
+          grade
+            ? "mt-4 w-full bg-brand-green px-4 py-4 text-base font-bold text-brand-dark transition-opacity hover:opacity-90"
+            : "mt-4 w-full cursor-not-allowed border-2 border-brand-dark/30 bg-white px-4 py-4 text-base font-bold text-brand-dark/40"
+        }
       >
-        {grade ? "Start Your $7 Trial" : "Choose a grade to start"}
+        {grade ? "Start My $7 Trial" : "Find My Child's Class"}
       </button>
     </div>
   );
