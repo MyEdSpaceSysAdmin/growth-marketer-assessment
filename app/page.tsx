@@ -237,9 +237,11 @@ export default function HomePage() {
 
       <section className="border-b-2 border-brand-dark bg-white">
         <div className="mx-auto max-w-4xl px-4 py-14 sm:px-5 md:py-20">
-          <p className="text-center text-sm font-bold uppercase tracking-widest text-brand-blue">
-            How it works
-          </p>
+          <div className="flex justify-center">
+            <span className="inline-block bg-brand-blue px-3 py-1 text-xs font-bold uppercase tracking-widest text-white">
+              How it works
+            </span>
+          </div>
           <h2 className="mt-3 text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
             Not tutoring. Not school. Something built to actually move the grade.
           </h2>
@@ -394,6 +396,7 @@ export default function HomePage() {
           <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
             Everything included, one price
           </h2>
+          <div className="mx-auto mt-3 h-1 w-20 bg-brand-blue" aria-hidden="true" />
           <div className="mt-8 grid gap-[2px] border-2 border-brand-dark bg-brand-dark sm:grid-cols-2 md:mt-10 lg:grid-cols-3">
             {[
               ["2 live classes every week", "Real-time teaching with Eddie, in your timezone."],
@@ -447,8 +450,9 @@ export default function HomePage() {
           <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
             The gap school doesn&rsquo;t fill — without the tutor price
           </h2>
-          <div className="mt-8 grid items-start gap-4 md:mt-12 md:grid-cols-3 md:gap-5">
-            <div className="border-2 border-brand-dark bg-white p-6">
+          <div className="mx-auto mt-3 h-1 w-20 bg-brand-blue" aria-hidden="true" />
+          <div className="mt-8 grid items-center gap-4 md:mt-12 md:grid-cols-[1fr_1.35fr_1fr] md:gap-0">
+            <div className="border-2 border-brand-dark bg-white p-6 md:border-r-0">
               <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/70">School</p>
               <p className="mt-2 text-3xl font-extrabold text-brand-dark">Free</p>
               <p className="mt-1 text-sm text-brand-dark/60">but you&rsquo;re here for a reason</p>
@@ -461,31 +465,33 @@ export default function HomePage() {
               </ul>
             </div>
 
-            <div className="border-2 border-brand-dark bg-brand-blue p-6 text-white md:-mt-4 md:pb-8">
+            <div className="z-10 border-2 border-brand-dark bg-brand-blue p-7 text-white md:-my-6 md:p-9">
               <span className="inline-block bg-brand-green px-2 py-1 text-xs font-extrabold uppercase tracking-widest text-brand-dark">
                 Best value
               </span>
-              <p className="mt-3 text-sm font-bold uppercase tracking-widest text-brand-light-blue">MyEdSpace</p>
-              <p className="mt-2 text-4xl font-extrabold text-white">
-                $149<span className="text-base font-medium text-white/80">/mo</span>
-              </p>
-              <p className="text-sm font-bold text-brand-green">Just $7 to start</p>
-              <ul className="mt-5 space-y-3 text-sm font-medium text-white">
+              <p className="mt-4 text-base font-bold uppercase tracking-widest text-brand-light-blue">MyEdSpace</p>
+              <ul className="mt-5 space-y-3 text-base font-medium text-white">
                 <li className="flex gap-2"><CheckOnBlue /> Same teacher, every single week</li>
                 <li className="flex gap-2"><CheckOnBlue /> Live twice a week</li>
                 <li className="flex gap-2"><CheckOnBlue /> Your child&rsquo;s pace</li>
                 <li className="flex gap-2"><CheckOnBlue /> Recordings included</li>
                 <li className="flex gap-2"><CheckOnBlue /> 24/7 AI homework coach</li>
               </ul>
+              <div className="mt-6 bg-white p-4 text-center text-brand-dark">
+                <p className="text-4xl font-extrabold">
+                  $149<span className="text-base font-medium text-brand-dark/70">/mo</span>
+                </p>
+                <p className="mt-1 text-sm font-bold text-brand-blue">Just $7 to start your trial</p>
+              </div>
               <button
                 onClick={() => openSignup()}
-                className="mt-6 w-full bg-brand-green px-4 py-3 text-sm font-bold text-brand-dark transition-opacity hover:opacity-90"
+                className="mt-4 w-full bg-brand-green px-4 py-3 text-base font-bold text-brand-dark transition-opacity hover:opacity-90"
               >
-                Start Your $7 Trial
+                Start Your $7 Trial →
               </button>
             </div>
 
-            <div className="border-2 border-brand-dark bg-white p-6">
+            <div className="border-2 border-brand-dark bg-white p-6 md:border-l-0">
               <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/70">Private tutor</p>
               <p className="mt-2 text-3xl font-extrabold text-brand-dark">
                 $640+<span className="text-base font-medium text-brand-dark/60">/mo</span>
