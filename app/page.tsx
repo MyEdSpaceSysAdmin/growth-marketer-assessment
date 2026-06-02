@@ -552,7 +552,7 @@ export default function HomePage() {
             <div className="grid grid-cols-[1.6fr_1fr_1.1fr_1fr]">
               {/* Header row */}
               <div />
-              <div className="border-2 border-r-0 border-brand-dark bg-white px-4 pb-4 pt-5 text-center">
+              <div className="border-2 border-brand-dark bg-white px-4 pb-4 pt-5 text-center">
                 <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/60">School</p>
                 <p className="mt-1 text-2xl font-extrabold text-brand-dark">Free</p>
               </div>
@@ -566,7 +566,7 @@ export default function HomePage() {
                 </p>
                 <p className="text-xs font-bold text-brand-green">$7 to start</p>
               </div>
-              <div className="border-2 border-l-0 border-brand-dark bg-white px-4 pb-4 pt-5 text-center">
+              <div className="border-2 border-brand-dark bg-white px-4 pb-4 pt-5 text-center">
                 <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/60">Private tutor</p>
                 <p className="mt-1 text-2xl font-extrabold text-brand-dark">$640+<span className="text-sm font-medium text-brand-dark/60">/mo</span></p>
               </div>
