@@ -166,27 +166,25 @@ export default function HomePage() {
               For grade 6&ndash;12 students who need more than school gives them. Live class twice a
               week, same teacher every time — for a fraction of a tutor&rsquo;s price.
             </p>
-            <div className="mt-6 flex items-center gap-3">
-              <div className="flex -space-x-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/img/eddie_5.webp"
-                  alt="Eddie Kang"
-                  className="h-12 w-12 border-2 border-white object-cover"
-                />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/img/adam_1.webp"
-                  alt="Adam Gilbert"
-                  className="h-12 w-12 border-2 border-white object-cover object-top"
-                />
-              </div>
-              <p className="text-sm font-medium text-brand-dark/70">
-                Taught by <span className="font-bold text-brand-dark">Eddie &amp; Adam</span> — real
-                US teachers, top-university math degrees.
+            <div className="mt-6 border-2 border-brand-green bg-white p-5 sm:p-6">
+              <p className="text-sm font-bold uppercase tracking-wide text-brand-blue">
+                Let&rsquo;s find your child&rsquo;s class
               </p>
+              <p className="mt-1 text-sm text-brand-dark/70">
+                Tell us their grade and we&rsquo;ll place them in the right course.
+              </p>
+              <GradePicker onStart={(g) => openSignup(g)} />
+              <div className="mt-4 flex items-start gap-2 border-2 border-brand-dark bg-brand-light-blue/30 p-3">
+                <Shield />
+                <div>
+                  <p className="text-sm font-bold text-brand-dark">$7 for 7 days. Cancel anytime.</p>
+                  <p className="text-xs text-brand-dark/70">
+                    Backed by a 30-day money-back guarantee — try it risk-free.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-brand-dark/70">
+            <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-brand-dark/70">
               <span className="flex items-center gap-1.5">
                 <Stars /> 4.8 &ldquo;Excellent&rdquo;
               </span>
@@ -195,29 +193,35 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="border-2 border-brand-green bg-white p-5 text-brand-dark sm:p-7">
-            <p className="text-sm font-bold uppercase tracking-wide text-brand-blue">
-              Let&rsquo;s find your child&rsquo;s class
-            </p>
-            <p className="mt-1 text-sm text-brand-dark/70">
-              Tell us their grade and we&rsquo;ll place them in the right course.
-            </p>
-            <GradePicker onStart={(g) => openSignup(g)} />
-            <div className="mt-4 flex items-start gap-2 border-2 border-brand-dark bg-brand-light-blue/30 p-3">
-              <Shield />
-              <div>
-                <p className="text-sm font-bold text-brand-dark">$7 for 7 days. Cancel anytime.</p>
-                <p className="text-xs text-brand-dark/70">
-                  Backed by a 30-day money-back guarantee — try it risk-free.
-                </p>
+          <div className="order-first md:order-last">
+            <div className="border-2 border-brand-dark bg-white">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/img/eddie_5.webp"
+                alt="Eddie Kang, MyEdSpace lead math teacher"
+                className="aspect-[4/5] w-full object-cover object-top"
+              />
+              <div className="flex items-center gap-3 border-t-2 border-brand-dark p-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/img/adam_1.webp"
+                  alt="Adam Gilbert"
+                  className="h-12 w-12 flex-none border-2 border-brand-dark object-cover object-top"
+                />
+                <div>
+                  <p className="text-sm font-bold text-brand-dark">Eddie Kang &amp; Adam Gilbert</p>
+                  <p className="text-xs text-brand-dark/70">
+                    UCLA &amp; Brown · 9+ and 7+ yrs teaching US math
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="border-b-2 border-brand-dark bg-white">
-        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-px border-y-2 border-brand-dark bg-brand-dark sm:grid-cols-4">
+      <section className="bg-white">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 divide-x-2 divide-y-2 divide-brand-dark border-2 border-brand-dark sm:grid-cols-4 sm:divide-y-0">
           {[
             ["21,000+", "Students taught"],
             ["95%", "Parent satisfaction"],
@@ -389,7 +393,7 @@ export default function HomePage() {
           <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
             Everything included, one price
           </h2>
-          <div className="mt-8 grid gap-px border-2 border-brand-dark bg-brand-dark sm:grid-cols-2 md:mt-10 lg:grid-cols-3">
+          <div className="mt-8 grid gap-[2px] border-2 border-brand-dark bg-brand-dark sm:grid-cols-2 md:mt-10 lg:grid-cols-3">
             {[
               ["2 live classes every week", "Real-time teaching with Eddie, in your timezone."],
               ["Every class recorded", "Miss one? Watch the replay any time — no catching up alone."],
@@ -415,7 +419,7 @@ export default function HomePage() {
           <p className="mx-auto mt-3 max-w-xl text-center text-brand-dark/70">
             Full month-by-month curriculum for every course — built toward US exams.
           </p>
-          <div className="mt-8 grid gap-px border-2 border-brand-dark bg-brand-dark sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-[2px] border-2 border-brand-dark bg-brand-dark sm:grid-cols-2 lg:grid-cols-4">
             {[
               ["Pre-Algebra", "/assets/curriculum/pre-algebra.pdf"],
               ["Algebra I", "/assets/curriculum/algebra-i.pdf"],
@@ -442,7 +446,7 @@ export default function HomePage() {
           <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
             The gap school doesn&rsquo;t fill — without the tutor price
           </h2>
-          <div className="mt-8 grid gap-px border-2 border-brand-dark bg-brand-dark md:mt-10 md:grid-cols-3">
+          <div className="mt-8 grid gap-[2px] border-2 border-brand-dark bg-brand-dark md:mt-10 md:grid-cols-3">
             <div className="bg-brand-light-blue/20 p-6">
               <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/50">School</p>
               <p className="mt-2 text-2xl font-extrabold">Free</p>
@@ -524,7 +528,7 @@ export default function HomePage() {
             </h2>
             <p className="text-brand-dark/70">21,000+ students taught across the US.</p>
           </div>
-          <div className="mt-8 grid gap-px border-2 border-brand-dark bg-brand-dark sm:grid-cols-2 md:mt-10 lg:grid-cols-3">
+          <div className="mt-8 grid gap-[2px] border-2 border-brand-dark bg-brand-dark sm:grid-cols-2 md:mt-10 lg:grid-cols-3">
             {reviews.map((r) => (
               <article key={r.name} className="flex flex-col bg-white p-6">
                 <Stars />
