@@ -71,6 +71,28 @@ function CheckOnBlue() {
   );
 }
 
+function Cell({ v, onBlue = false }: { v: boolean | string; onBlue?: boolean }) {
+  if (v === "varies") {
+    return (
+      <span className={`text-xs font-bold uppercase tracking-wide ${onBlue ? "text-brand-light-blue" : "text-brand-dark/50"}`}>
+        Varies
+      </span>
+    );
+  }
+  if (v === true) {
+    return (
+      <svg viewBox="0 0 24 24" className="h-6 w-6" aria-label="Yes">
+        <path d="M5 13l4 4L19 7" fill="none" stroke={onBlue ? "#b1db00" : "#3533ff"} strokeWidth="2.5" />
+      </svg>
+    );
+  }
+  return (
+    <svg viewBox="0 0 24 24" className="h-6 w-6" aria-label="No">
+      <path d="M6 6l12 12M18 6L6 18" fill="none" stroke={onBlue ? "#ffffff" : "#101626"} strokeWidth="2.5" opacity={onBlue ? "0.5" : "0.3"} />
+    </svg>
+  );
+}
+
 function Cross() {
   return (
     <svg viewBox="0 0 24 24" className="h-5 w-5 flex-none" aria-hidden="true">
@@ -462,7 +484,7 @@ export default function HomePage() {
           <SectionHeader
             eyebrow="What's included"
             title="Everything included, one price"
-            align="left"
+            align="center"
             eyebrowStyle="block"
           />
           <div className="mt-8 grid gap-[2px] border-2 border-brand-dark bg-brand-dark sm:grid-cols-2 md:mt-10 lg:grid-cols-3">
@@ -525,59 +547,113 @@ export default function HomePage() {
             eyebrowStyle="block"
             accent="underline"
           />
-          <div className="mt-8 grid items-center gap-4 md:mt-12 md:grid-cols-[1fr_1.35fr_1fr] md:gap-0">
-            <div className="border-2 border-brand-dark bg-white p-6 md:border-r-0">
-              <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/70">School</p>
-              <p className="mt-2 text-3xl font-extrabold text-brand-dark">Free</p>
-              <p className="mt-1 text-sm text-brand-dark/60">but you&rsquo;re here for a reason</p>
-              <ul className="mt-5 space-y-3 text-sm text-brand-dark">
-                <li className="flex gap-2"><Cross /> 30 kids per class</li>
-                <li className="flex gap-2"><Cross /> Same teacher? Not guaranteed</li>
-                <li className="flex gap-2"><Cross /> Fixed pace for everyone</li>
-                <li className="flex gap-2"><Cross /> No recordings</li>
-                <li className="flex gap-2"><Cross /> No help with homework</li>
-              </ul>
-            </div>
+          {/* Desktop: true comparison table, MyEdSpace centre column elevated */}
+          <div className="mt-10 hidden md:block">
+            <div className="grid grid-cols-[1.6fr_1fr_1.1fr_1fr]">
+              {/* Header row */}
+              <div />
+              <div className="border-2 border-r-0 border-brand-dark bg-white px-4 pb-4 pt-5 text-center">
+                <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/60">School</p>
+                <p className="mt-1 text-2xl font-extrabold text-brand-dark">Free</p>
+              </div>
+              <div className="-mt-4 border-2 border-brand-dark bg-brand-blue px-4 pb-5 pt-5 text-center text-white">
+                <span className="inline-block bg-brand-green px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-widest text-brand-dark">
+                  Best value
+                </span>
+                <p className="mt-2 text-sm font-bold uppercase tracking-widest text-brand-light-blue">MyEdSpace</p>
+                <p className="mt-1 text-3xl font-extrabold">
+                  $149<span className="text-sm font-medium text-white/80">/mo</span>
+                </p>
+                <p className="text-xs font-bold text-brand-green">$7 to start</p>
+              </div>
+              <div className="border-2 border-l-0 border-brand-dark bg-white px-4 pb-4 pt-5 text-center">
+                <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/60">Private tutor</p>
+                <p className="mt-1 text-2xl font-extrabold text-brand-dark">$640+<span className="text-sm font-medium text-brand-dark/60">/mo</span></p>
+              </div>
 
-            <div className="z-10 border-2 border-brand-dark bg-brand-blue p-7 text-white md:-my-6 md:p-9">
-              <span className="inline-block bg-brand-green px-2 py-1 text-xs font-extrabold uppercase tracking-widest text-brand-dark">
+              {/* Feature rows */}
+              {[
+                ["Learn at your child's pace", true, true, false],
+                ["Expert teacher every session", true, "varies", true],
+                ["Same teacher every week", true, "varies", false],
+                ["Live classes twice a week", true, true, false],
+                ["Lesson recordings included", true, false, false],
+                ["24/7 AI homework coach", true, false, false],
+                ["Structured exam-ready curriculum", true, "varies", true],
+                ["Small-group learning", true, false, false],
+              ].map(([feature, mes, tutor, school], i) => (
+                <div key={feature as string} className="contents">
+                  <div className={`flex items-center border-2 border-t-0 border-r-0 border-brand-dark px-4 py-3 text-sm font-semibold ${i === 0 ? "" : ""}`}>
+                    {feature}
+                  </div>
+                  <div className="flex items-center justify-center border-2 border-t-0 border-r-0 border-brand-dark bg-white px-4 py-3">
+                    <Cell v={school} />
+                  </div>
+                  <div className="flex items-center justify-center border-2 border-t-0 border-brand-dark bg-brand-blue px-4 py-3">
+                    <Cell v={mes} onBlue />
+                  </div>
+                  <div className="flex items-center justify-center border-2 border-t-0 border-l-0 border-brand-dark bg-white px-4 py-3">
+                    <Cell v={tutor} />
+                  </div>
+                </div>
+              ))}
+
+              {/* CTA row under MyEdSpace */}
+              <div />
+              <div className="border-2 border-t-0 border-r-0 border-brand-dark bg-white" />
+              <div className="border-2 border-t-0 border-brand-dark bg-brand-blue p-4">
+                <button
+                  onClick={() => openSignup()}
+                  className="w-full bg-brand-green px-4 py-3 text-sm font-bold text-brand-dark transition-opacity hover:opacity-90"
+                >
+                  Start Your $7 Trial →
+                </button>
+              </div>
+              <div className="border-2 border-t-0 border-l-0 border-brand-dark bg-white" />
+            </div>
+          </div>
+
+          {/* Mobile: stacked, MyEdSpace first and highlighted */}
+          <div className="mt-8 space-y-4 md:hidden">
+            <div className="border-2 border-brand-dark bg-brand-blue p-5 text-white">
+              <span className="inline-block bg-brand-green px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-widest text-brand-dark">
                 Best value
               </span>
-              <p className="mt-4 text-base font-bold uppercase tracking-widest text-brand-light-blue">MyEdSpace</p>
-              <ul className="mt-5 space-y-3 text-base font-medium text-white">
-                <li className="flex gap-2"><CheckOnBlue /> Same teacher, every single week</li>
-                <li className="flex gap-2"><CheckOnBlue /> Live twice a week</li>
-                <li className="flex gap-2"><CheckOnBlue /> Your child&rsquo;s pace</li>
-                <li className="flex gap-2"><CheckOnBlue /> Recordings included</li>
-                <li className="flex gap-2"><CheckOnBlue /> 24/7 AI homework coach</li>
+              <p className="mt-2 text-sm font-bold uppercase tracking-widest text-brand-light-blue">MyEdSpace</p>
+              <p className="mt-1 text-3xl font-extrabold">$149<span className="text-sm font-medium text-white/80">/mo · $7 to start</span></p>
+              <ul className="mt-4 space-y-2 text-sm">
+                <li className="flex gap-2"><CheckOnBlue /> Same teacher, every week</li>
+                <li className="flex gap-2"><CheckOnBlue /> Live twice a week + recordings</li>
+                <li className="flex gap-2"><CheckOnBlue /> 24/7 AI coach</li>
+                <li className="flex gap-2"><CheckOnBlue /> Structured, exam-ready curriculum</li>
+                <li className="flex gap-2"><CheckOnBlue /> Small-group learning</li>
               </ul>
-              <div className="mt-6 bg-white p-4 text-center text-brand-dark">
-                <p className="text-4xl font-extrabold">
-                  $149<span className="text-base font-medium text-brand-dark/70">/mo</span>
-                </p>
-                <p className="mt-1 text-sm font-bold text-brand-blue">Just $7 to start your trial</p>
-              </div>
               <button
                 onClick={() => openSignup()}
-                className="mt-4 w-full bg-brand-green px-4 py-3 text-base font-bold text-brand-dark transition-opacity hover:opacity-90"
+                className="mt-4 w-full bg-brand-green px-4 py-3 text-sm font-bold text-brand-dark"
               >
                 Start Your $7 Trial →
               </button>
             </div>
-
-            <div className="border-2 border-brand-dark bg-white p-6 md:border-l-0">
-              <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/70">Private tutor</p>
-              <p className="mt-2 text-3xl font-extrabold text-brand-dark">
-                $640+<span className="text-base font-medium text-brand-dark/60">/mo</span>
-              </p>
-              <p className="mt-1 text-sm text-brand-dark/60">for a fraction of the teaching</p>
-              <ul className="mt-5 space-y-3 text-sm text-brand-dark">
-                <li className="flex gap-2"><Check /> 1-on-1 attention</li>
-                <li className="flex gap-2"><Cross /> Cancellations &amp; reschedules</li>
-                <li className="flex gap-2"><Cross /> No set curriculum</li>
-                <li className="flex gap-2"><Cross /> Quality varies wildly</li>
-                <li className="flex gap-2"><Cross /> Paying for travel &amp; idle time</li>
-              </ul>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="border-2 border-brand-dark bg-white p-4">
+                <p className="text-xs font-bold uppercase tracking-widest text-brand-dark/60">School</p>
+                <p className="mt-1 text-xl font-extrabold">Free</p>
+                <ul className="mt-3 space-y-2 text-xs text-brand-dark">
+                  <li className="flex gap-1.5"><Cross /> No recordings</li>
+                  <li className="flex gap-1.5"><Cross /> 30 per class</li>
+                  <li className="flex gap-1.5"><Cross /> Fixed pace</li>
+                </ul>
+              </div>
+              <div className="border-2 border-brand-dark bg-white p-4">
+                <p className="text-xs font-bold uppercase tracking-widest text-brand-dark/60">Private tutor</p>
+                <p className="mt-1 text-xl font-extrabold">$640+</p>
+                <ul className="mt-3 space-y-2 text-xs text-brand-dark">
+                  <li className="flex gap-1.5"><Cross /> No recordings</li>
+                  <li className="flex gap-1.5"><Cross /> No AI coach</li>
+                  <li className="flex gap-1.5"><Cross /> Quality varies</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
