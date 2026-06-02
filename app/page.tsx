@@ -156,7 +156,7 @@ export default function HomePage() {
       </header>
 
       <section className="bg-brand-blue text-white">
-        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 sm:px-5 md:grid-cols-2 md:gap-6 md:py-16">
+        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 sm:px-5 md:grid-cols-2 md:gap-10 md:py-16">
           <div>
             <p className="mb-4 inline-block border-2 border-white/40 px-3 py-1 text-xs font-bold uppercase tracking-widest text-white">
               Live Online Math · Grades 4&ndash;12
@@ -169,24 +169,12 @@ export default function HomePage() {
               For grade 4&ndash;12 students who need more than school gives them. Live class twice a
               week, same teacher every time — for a fraction of a tutor&rsquo;s price.
             </p>
-            <div className="mt-6 border-2 border-brand-green bg-white p-5 text-brand-dark sm:p-6">
-              <p className="text-sm font-bold uppercase tracking-wide text-brand-blue">
-                Let&rsquo;s find your child&rsquo;s class
-              </p>
-              <p className="mt-1 text-sm text-brand-dark/70">
-                Tell us their grade and we&rsquo;ll place them in the right course.
-              </p>
-              <GradePicker onStart={(g) => openSignup(g)} />
-              <div className="mt-4 flex items-start gap-2 border-2 border-brand-dark bg-brand-light-blue/30 p-3">
-                <Shield />
-                <div>
-                  <p className="text-sm font-bold text-brand-dark">$7 for 7 days. Cancel anytime.</p>
-                  <p className="text-xs text-brand-dark/70">
-                    Backed by a 30-day money-back guarantee — try it risk-free.
-                  </p>
-                </div>
-              </div>
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/img/eddie_hero.webp"
+              alt="Eddie Kang, MyEdSpace lead math teacher"
+              className="mt-6 w-full max-w-md"
+            />
             <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-white/85">
               <span className="flex items-center gap-1.5">
                 <Stars /> 4.8 &ldquo;Excellent&rdquo;
@@ -196,30 +184,42 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="order-first self-end md:order-last">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/assets/img/eddie_hero.webp"
-              alt="Eddie Kang, MyEdSpace lead math teacher"
-              className="mx-auto w-full max-w-sm md:max-w-none"
-            />
+          <div className="border-2 border-brand-green bg-white p-5 text-brand-dark sm:p-7">
+            <p className="text-sm font-bold uppercase tracking-wide text-brand-blue">
+              Let&rsquo;s find your child&rsquo;s class
+            </p>
+            <p className="mt-1 text-sm text-brand-dark/70">
+              Tell us their grade and we&rsquo;ll place them in the right course.
+            </p>
+            <GradePicker onStart={(g) => openSignup(g)} />
+            <div className="mt-4 flex items-start gap-2 border-2 border-brand-dark bg-brand-light-blue/30 p-3">
+              <Shield />
+              <div>
+                <p className="text-sm font-bold text-brand-dark">$7 for 7 days. Cancel anytime.</p>
+                <p className="text-xs text-brand-dark/70">
+                  Backed by a 30-day money-back guarantee — try it risk-free.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       <section className="bg-white">
-        <div className="mx-auto grid max-w-6xl grid-cols-2 divide-x-2 divide-y-2 divide-brand-dark border-2 border-brand-dark sm:grid-cols-4 sm:divide-y-0">
-          {[
-            ["21,000+", "Students taught"],
-            ["95%", "Parent satisfaction"],
-            ["4.8★", "Average rating"],
-            ["83%", "Improved confidence"],
-          ].map(([stat, label]) => (
-            <div key={label} className="bg-white p-6 text-center sm:p-8">
-              <p className="text-3xl font-extrabold text-brand-blue sm:text-4xl">{stat}</p>
-              <p className="mt-1 text-xs font-bold uppercase tracking-widest text-brand-dark/60">{label}</p>
-            </div>
-          ))}
+        <div className="mx-auto max-w-5xl px-4 py-12 sm:px-5 md:py-16">
+          <div className="grid grid-cols-2 divide-x-2 divide-y-2 divide-brand-dark border-2 border-brand-dark sm:grid-cols-4 sm:divide-y-0">
+            {[
+              ["21,000+", "Students taught"],
+              ["95%", "Parent satisfaction"],
+              ["4.8★", "Average rating"],
+              ["83%", "Improved confidence"],
+            ].map(([stat, label]) => (
+              <div key={label} className="bg-white px-4 py-8 text-center sm:py-10">
+                <p className="text-2xl font-extrabold text-brand-blue sm:text-3xl">{stat}</p>
+                <p className="mt-2 text-xs font-bold uppercase tracking-widest text-brand-dark/60">{label}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
