@@ -119,23 +119,6 @@ function GradeChart() {
   );
 }
 
-function MathMotif() {
-  return (
-    <svg viewBox="0 0 200 200" className="h-full w-full" aria-hidden="true">
-      <line x1="0" y1="50" x2="200" y2="50" stroke="#a3e1f0" strokeWidth="1" opacity="0.4" />
-      <line x1="0" y1="100" x2="200" y2="100" stroke="#a3e1f0" strokeWidth="1" opacity="0.4" />
-      <line x1="0" y1="150" x2="200" y2="150" stroke="#a3e1f0" strokeWidth="1" opacity="0.4" />
-      <line x1="50" y1="0" x2="50" y2="200" stroke="#a3e1f0" strokeWidth="1" opacity="0.4" />
-      <line x1="100" y1="0" x2="100" y2="200" stroke="#a3e1f0" strokeWidth="1" opacity="0.4" />
-      <line x1="150" y1="0" x2="150" y2="200" stroke="#a3e1f0" strokeWidth="1" opacity="0.4" />
-      <path d="M20 170 Q100 -20 180 170" fill="none" stroke="#b1db00" strokeWidth="3" opacity="0.7" />
-      <circle cx="50" cy="120" r="4" fill="#a3e1f0" />
-      <circle cx="150" cy="120" r="4" fill="#a3e1f0" />
-      <circle cx="100" cy="50" r="4" fill="#b1db00" />
-    </svg>
-  );
-}
-
 function StepArrow() {
   return (
     <svg viewBox="0 0 40 24" className="h-5 w-8 flex-none" aria-hidden="true">
@@ -169,21 +152,41 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="bg-brand-dark text-white">
+      <section className="bg-brand-light-blue/30 text-brand-dark">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-5 md:grid-cols-2 md:items-center md:gap-12 md:py-20">
           <div>
-            <p className="mb-4 inline-block border-2 border-brand-light-blue px-3 py-1 text-xs font-bold uppercase tracking-widest text-brand-light-blue">
+            <p className="mb-4 inline-block border-2 border-brand-blue px-3 py-1 text-xs font-bold uppercase tracking-widest text-brand-blue">
               Live Online Math · Grades 6&ndash;12
             </p>
             <h1 className="text-[2.1rem] font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
               School moves too fast. Tutors didn&rsquo;t stick.
-              <span className="text-brand-green"> This is the math help that works — try it for $7.</span>
+              <span className="text-brand-blue"> This is the math help that works — try it for $7.</span>
             </h1>
-            <p className="mt-5 max-w-md text-base text-white/80 sm:text-lg">
+            <p className="mt-5 max-w-md text-base text-brand-dark/70 sm:text-lg">
               For grade 6&ndash;12 students who need more than school gives them. Live class twice a
               week, same teacher every time — for a fraction of a tutor&rsquo;s price.
             </p>
-            <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-white/80">
+            <div className="mt-6 flex items-center gap-3">
+              <div className="flex -space-x-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/img/eddie_5.webp"
+                  alt="Eddie Kang"
+                  className="h-12 w-12 border-2 border-white object-cover"
+                />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/img/adam_1.webp"
+                  alt="Adam Gilbert"
+                  className="h-12 w-12 border-2 border-white object-cover object-top"
+                />
+              </div>
+              <p className="text-sm font-medium text-brand-dark/70">
+                Taught by <span className="font-bold text-brand-dark">Eddie &amp; Adam</span> — real
+                US teachers, top-university math degrees.
+              </p>
+            </div>
+            <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-brand-dark/70">
               <span className="flex items-center gap-1.5">
                 <Stars /> 4.8 &ldquo;Excellent&rdquo;
               </span>
@@ -192,11 +195,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="relative border-2 border-brand-green bg-white p-5 text-brand-dark sm:p-7">
-            <div className="pointer-events-none absolute right-0 top-0 h-24 w-24 opacity-50">
-              <MathMotif />
-            </div>
-            <p className="relative text-sm font-bold uppercase tracking-wide text-brand-blue">
+          <div className="border-2 border-brand-green bg-white p-5 text-brand-dark sm:p-7">
+            <p className="text-sm font-bold uppercase tracking-wide text-brand-blue">
               Let&rsquo;s find your child&rsquo;s class
             </p>
             <p className="mt-1 text-sm text-brand-dark/70">
@@ -609,7 +609,7 @@ export default function HomePage() {
       </section>
 
       <footer className="bg-brand-dark pb-20 text-white/60 md:pb-0">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 border-t border-white/20 px-4 py-8 text-sm sm:flex-row sm:px-5">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 border-t-2 border-white/20 px-4 py-8 text-sm sm:flex-row sm:px-5">
           <span className="font-extrabold text-white">MyEdSpace</span>
           <div className="flex gap-6">
             <a href="#" className="hover:text-white">Terms</a>
