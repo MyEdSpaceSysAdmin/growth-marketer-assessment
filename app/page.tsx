@@ -106,53 +106,28 @@ function HeroMotif() {
         <line x1="240" y1="0" x2="240" y2="400" />
         <line x1="320" y1="0" x2="320" y2="400" />
       </g>
-      <path
-        d="M40 360 Q200 -40 360 360"
-        fill="none"
-        stroke="#b1db00"
-        strokeWidth="3"
-        opacity="0.35"
-      />
-      <circle cx="120" cy="150" r="5" fill="#a3e1f0" opacity="0.5" />
-      <circle cx="280" cy="150" r="5" fill="#a3e1f0" opacity="0.5" />
-      <circle cx="200" cy="60" r="6" fill="#b1db00" opacity="0.5" />
+      <rect x="80" y="160" width="80" height="80" fill="#ffffff" opacity="0.06" />
+      <rect x="240" y="80" width="80" height="80" fill="#b1db00" opacity="0.14" />
+      <rect x="160" y="240" width="80" height="80" fill="#a3e1f0" opacity="0.12" />
     </svg>
   );
 }
 
-function BuildBlocks() {
-  // Each lesson builds on the last — stepped blocks rising, labelled by concept, no grade/outcome claim.
-  const steps = [
-    { label: "Foundations", h: 50 },
-    { label: "Core skills", h: 90 },
-    { label: "Fluency", h: 130 },
-    { label: "Exam-ready", h: 170 },
-  ];
+// Decorative offset-block cluster (the MES checkerboard motif) for section corners.
+// variant controls the palette so it reads on either light or blue grounds.
+function BlockCluster({ variant = "light" }: { variant?: "light" | "blue" }) {
+  const fills =
+    variant === "blue"
+      ? ["#ffffff", "#b1db00", "#a3e1f0"]
+      : ["#3533ff", "#b1db00", "#a3e1f0"];
+  const op = variant === "blue" ? [0.08, 0.16, 0.14] : [0.07, 0.14, 0.16];
   return (
-    <svg viewBox="0 0 320 210" className="h-auto w-full" role="img" aria-label="Stepped blocks showing how each topic builds on the last">
-      <line x1="20" y1="190" x2="300" y2="190" stroke="#101626" strokeWidth="2" />
-      {steps.map((s, i) => {
-        const x = 30 + i * 70;
-        const y = 190 - s.h;
-        const isLast = i === steps.length - 1;
-        return (
-          <g key={s.label}>
-            <rect
-              x={x}
-              y={y}
-              width="56"
-              height={s.h}
-              fill={isLast ? "#b1db00" : "#3533ff"}
-              opacity={isLast ? 1 : 0.55 + i * 0.15}
-              stroke="#101626"
-              strokeWidth="2"
-            />
-            <text x={x + 28} y="205" fill="#101626" fontSize="9" fontWeight="bold" textAnchor="middle">
-              {s.label}
-            </text>
-          </g>
-        );
-      })}
+    <svg viewBox="0 0 160 160" className="h-full w-full" aria-hidden="true">
+      <rect x="0" y="0" width="52" height="52" fill={fills[0]} opacity={op[0]} />
+      <rect x="56" y="56" width="52" height="52" fill={fills[2]} opacity={op[2]} />
+      <rect x="112" y="0" width="44" height="44" fill={fills[1]} opacity={op[1]} />
+      <rect x="0" y="112" width="44" height="44" fill={fills[1]} opacity={op[1]} />
+      <rect x="112" y="112" width="44" height="44" fill={fills[2]} opacity={op[2]} />
     </svg>
   );
 }
@@ -271,8 +246,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-b-2 border-brand-dark bg-white">
-        <div className="mx-auto max-w-4xl px-4 py-14 sm:px-5 md:py-20">
+      <section className="relative overflow-hidden border-b-2 border-brand-dark bg-white">
+        <div className="pointer-events-none absolute right-0 top-0 hidden h-40 w-40 md:block" aria-hidden="true">
+          <BlockCluster variant="light" />
+        </div>
+        <div className="relative mx-auto max-w-4xl px-4 py-14 sm:px-5 md:py-20">
           <p className="text-center text-sm font-bold uppercase tracking-widest text-brand-blue">
             How it works
           </p>
@@ -396,18 +374,40 @@ export default function HomePage() {
             <p className="text-xs font-bold uppercase tracking-widest text-brand-blue">
               How learning builds here
             </p>
-            <div className="mt-3">
-              <BuildBlocks />
+            <div className="mt-4 space-y-2">
+              {[
+                ["Foundations", "Fill the gaps school left behind"],
+                ["Core skills", "Build fluency, week on week"],
+                ["Confidence", "They start putting their hand up"],
+                ["Exam-ready", "Walking in prepared, not panicked"],
+              ].map(([title, sub], i) => (
+                <div
+                  key={title}
+                  className="flex items-center gap-3 border-2 border-brand-dark bg-brand-light-blue/20 p-3"
+                  style={{ marginLeft: `${i * 14}px` }}
+                >
+                  <span className="flex h-7 w-7 flex-none items-center justify-center bg-brand-blue text-sm font-extrabold text-white">
+                    {i + 1}
+                  </span>
+                  <div>
+                    <p className="text-sm font-bold text-brand-dark">{title}</p>
+                    <p className="text-xs text-brand-dark/70">{sub}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-            <p className="mt-2 text-sm font-medium text-brand-dark/70">
+            <p className="mt-4 text-sm font-medium text-brand-dark/70">
               Every topic builds on the last — structured, not a one-off cram.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="border-y-2 border-brand-dark bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-5 md:py-20">
+      <section className="relative overflow-hidden border-y-2 border-brand-dark bg-white">
+        <div className="pointer-events-none absolute bottom-0 left-0 hidden h-40 w-40 md:block" aria-hidden="true">
+          <BlockCluster variant="light" />
+        </div>
+        <div className="relative mx-auto max-w-6xl px-4 py-14 sm:px-5 md:py-20">
           <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
             Everything included, one price
           </h2>
@@ -429,7 +429,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-b-2 border-brand-dark bg-white">
+      <section className="border-b-2 border-brand-dark bg-brand-light-blue/40">
         <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 md:py-20">
           <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
             See exactly what they&rsquo;ll learn
@@ -594,8 +594,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-b-2 border-brand-dark bg-white">
-        <div className="mx-auto max-w-3xl px-4 py-14 sm:px-5 md:py-20">
+      <section className="relative overflow-hidden border-b-2 border-brand-dark bg-white">
+        <div className="pointer-events-none absolute right-0 top-0 hidden h-36 w-36 md:block" aria-hidden="true">
+          <BlockCluster variant="light" />
+        </div>
+        <div className="relative mx-auto max-w-3xl px-4 py-14 sm:px-5 md:py-20">
           <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
             Questions parents ask first
           </h2>
@@ -613,8 +616,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-brand-blue text-white">
-        <div className="mx-auto max-w-3xl px-4 py-14 text-center sm:px-5 md:py-20">
+      <section className="relative overflow-hidden bg-brand-blue text-white">
+        <div className="pointer-events-none absolute left-0 top-0 hidden h-44 w-44 md:block" aria-hidden="true">
+          <BlockCluster variant="blue" />
+        </div>
+        <div className="pointer-events-none absolute bottom-0 right-0 hidden h-44 w-44 md:block" aria-hidden="true">
+          <BlockCluster variant="blue" />
+        </div>
+        <div className="relative mx-auto max-w-3xl px-4 py-14 text-center sm:px-5 md:py-20">
           <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
             Same teacher. Same time. Every week until it clicks.
           </h2>
