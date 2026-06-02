@@ -55,7 +55,7 @@ function Star() {
 function Check() {
   return (
     <svg viewBox="0 0 24 24" className="h-5 w-5 flex-none" aria-hidden="true">
-      <path d="M5 13l4 4L19 7" fill="none" stroke="#3533ff" strokeWidth="2.5" />
+      <path d="M5 13l4 4L19 7" fill="none" stroke="#3533ff" strokeWidth="2" />
     </svg>
   );
 }
@@ -63,7 +63,7 @@ function Check() {
 function Cross() {
   return (
     <svg viewBox="0 0 24 24" className="h-5 w-5 flex-none" aria-hidden="true">
-      <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" strokeWidth="2.5" />
+      <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" strokeWidth="2" />
     </svg>
   );
 }
@@ -103,7 +103,7 @@ function GradeChart() {
         points="40,150 100,140 160,110 220,70 290,30"
         fill="none"
         stroke="#3533ff"
-        strokeWidth="4"
+        strokeWidth="3"
         strokeLinecap="square"
         strokeLinejoin="miter"
       />
@@ -139,7 +139,7 @@ function MathMotif() {
 function StepArrow() {
   return (
     <svg viewBox="0 0 40 24" className="h-5 w-8 flex-none" aria-hidden="true">
-      <path d="M4 12h28M24 4l8 8-8 8" fill="none" stroke="#3533ff" strokeWidth="2.5" />
+      <path d="M4 12h28M24 4l8 8-8 8" fill="none" stroke="#3533ff" strokeWidth="2" />
     </svg>
   );
 }
@@ -157,10 +157,9 @@ export default function HomePage() {
     <main className="bg-white font-sans text-brand-dark antialiased">
       <header className="sticky top-0 z-40 border-b-2 border-brand-dark bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-5">
-          <span className="flex items-center gap-2 text-lg font-extrabold tracking-tight text-brand-blue sm:text-xl">
-            <img src="/assets/img/favicon.webp" alt="" className="h-6 w-6" />
-            MyEdSpace
-          </span>
+          <a href="#" className="flex items-center">
+            <img src="/assets/img/mes-logo-main-blue.webp" alt="MyEdSpace" className="h-7 w-auto sm:h-8" />
+          </a>
           <button
             onClick={() => openSignup()}
             className="bg-brand-green px-3 py-2 text-xs font-bold text-brand-dark transition-opacity hover:opacity-90 sm:px-4 sm:text-sm"
@@ -173,7 +172,7 @@ export default function HomePage() {
       <section className="bg-brand-dark text-white">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-5 md:grid-cols-2 md:items-center md:gap-12 md:py-20">
           <div>
-            <p className="mb-4 inline-block border border-brand-light-blue px-3 py-1 text-xs font-bold uppercase tracking-widest text-brand-light-blue">
+            <p className="mb-4 inline-block border-2 border-brand-light-blue px-3 py-1 text-xs font-bold uppercase tracking-widest text-brand-light-blue">
               Live Online Math · Grades 6&ndash;12
             </p>
             <h1 className="text-[2.1rem] font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
@@ -438,24 +437,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-brand-dark text-white">
+      <section className="border-y-2 border-brand-dark bg-white text-brand-dark">
         <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 md:py-20">
           <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-4xl">
             The gap school doesn&rsquo;t fill — without the tutor price
           </h2>
-          <div className="mt-8 grid gap-px bg-white/20 md:mt-10 md:grid-cols-3">
-            <div className="bg-brand-dark p-6">
-              <p className="text-sm font-bold uppercase tracking-widest text-white/50">School</p>
+          <div className="mt-8 grid gap-px border-2 border-brand-dark bg-brand-dark md:mt-10 md:grid-cols-3">
+            <div className="bg-brand-light-blue/20 p-6">
+              <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/50">School</p>
               <p className="mt-2 text-2xl font-extrabold">Free</p>
-              <ul className="mt-5 space-y-3 text-sm text-white/70">
-                <li className="flex gap-2 text-white/40"><Cross /> 30 kids per class</li>
-                <li className="flex gap-2 text-white/40"><Cross /> Same teacher? Not guaranteed</li>
-                <li className="flex gap-2 text-white/40"><Cross /> Fixed pace</li>
-                <li className="flex gap-2 text-white/40"><Cross /> No recordings</li>
-                <li className="flex gap-2 text-white/40"><Cross /> No homework help</li>
+              <ul className="mt-5 space-y-3 text-sm text-brand-dark/70">
+                <li className="flex gap-2 text-brand-dark/40"><Cross /> 30 kids per class</li>
+                <li className="flex gap-2 text-brand-dark/40"><Cross /> Same teacher? Not guaranteed</li>
+                <li className="flex gap-2 text-brand-dark/40"><Cross /> Fixed pace</li>
+                <li className="flex gap-2 text-brand-dark/40"><Cross /> No recordings</li>
+                <li className="flex gap-2 text-brand-dark/40"><Cross /> No homework help</li>
               </ul>
             </div>
-            <div className="bg-white p-6 text-brand-dark md:-my-3 md:border-2 md:border-brand-green">
+            <div className="bg-white p-6 text-brand-dark md:-my-3 md:border-x-2 md:border-brand-green">
               <p className="text-sm font-bold uppercase tracking-widest text-brand-blue">MyEdSpace</p>
               <p className="mt-2 text-2xl font-extrabold">$149<span className="text-base font-medium">/mo</span></p>
               <p className="text-sm font-bold text-brand-blue">$7 to start</p>
@@ -474,15 +473,15 @@ export default function HomePage() {
                 Start Your $7 Trial
               </button>
             </div>
-            <div className="bg-brand-dark p-6">
-              <p className="text-sm font-bold uppercase tracking-widest text-white/50">Private tutor</p>
+            <div className="bg-brand-light-blue/20 p-6">
+              <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/50">Private tutor</p>
               <p className="mt-2 text-2xl font-extrabold">$640+<span className="text-base font-medium">/mo</span></p>
-              <ul className="mt-5 space-y-3 text-sm text-white/70">
+              <ul className="mt-5 space-y-3 text-sm text-brand-dark/70">
                 <li className="flex gap-2"><Check /> 1 student</li>
-                <li className="flex gap-2 text-white/40"><Cross /> Cancellations &amp; reschedules</li>
-                <li className="flex gap-2 text-white/40"><Cross /> No structure</li>
-                <li className="flex gap-2 text-white/40"><Cross /> Variable quality</li>
-                <li className="flex gap-2 text-white/40"><Cross /> Pay for travel &amp; idle time</li>
+                <li className="flex gap-2 text-brand-dark/40"><Cross /> Cancellations &amp; reschedules</li>
+                <li className="flex gap-2 text-brand-dark/40"><Cross /> No structure</li>
+                <li className="flex gap-2 text-brand-dark/40"><Cross /> Variable quality</li>
+                <li className="flex gap-2 text-brand-dark/40"><Cross /> Pay for travel &amp; idle time</li>
               </ul>
             </div>
           </div>
@@ -592,7 +591,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-brand-dark text-white">
+      <section className="bg-brand-blue text-white">
         <div className="mx-auto max-w-3xl px-4 py-14 text-center sm:px-5 md:py-20">
           <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
             Same teacher. Same time. Every week until it clicks.
