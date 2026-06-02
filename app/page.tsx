@@ -164,18 +164,6 @@ export default function HomePage() {
               <span><span className="font-extrabold">21,000+</span> students taught</span>
               <span><span className="font-extrabold">95%</span> parent satisfaction</span>
             </div>
-            <div className="mt-6 flex items-center gap-4">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/assets/img/eddie_hero.webp"
-                alt="Eddie Kang, MyEdSpace lead math teacher"
-                className="w-32 flex-none sm:w-40"
-              />
-              <p className="text-sm text-white/85">
-                Taught by <span className="font-bold text-white">Eddie Kang</span> — UCLA Pure Math,
-                perfect SAT 800, 9+ years teaching California math.
-              </p>
-            </div>
           </div>
 
           <div className="border-2 border-brand-green bg-white p-6 text-brand-dark sm:p-8">
