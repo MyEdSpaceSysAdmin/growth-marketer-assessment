@@ -275,7 +275,7 @@ export default function HomePage() {
             </p>
             <GradePicker onStart={(g) => openSignup(g)} />
             <ul className="mt-5 space-y-2 text-sm">
-              <li className="flex items-center gap-2"><Check /> Same expert teacher every week</li>
+              <li className="flex items-center gap-2"><Check /> A structured course that builds, not random sessions</li>
               <li className="flex items-center gap-2"><Check /> Live twice a week, recordings included</li>
               <li className="flex items-center gap-2"><Check /> Cancel anytime · 30-day money-back guarantee</li>
             </ul>
@@ -381,7 +381,7 @@ export default function HomePage() {
               Meet your teachers
             </p>
             <h2 className="mt-3 text-2xl font-extrabold tracking-tight sm:text-4xl">
-              Real US teachers. The same face every class.
+              Real US teachers, not rotating tutors.
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-brand-dark/70">
               No rotating tutors, no grad students. Your child learns from one expert teacher who
