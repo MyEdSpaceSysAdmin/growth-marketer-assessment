@@ -286,12 +286,14 @@ export default function HomePage() {
 
           <div className="border-2 border-brand-green bg-white p-6 text-brand-dark sm:p-8">
             <p className="text-base font-extrabold uppercase tracking-wide text-brand-blue">
-              Find your child&rsquo;s class
+              {audience === "parent" ? "Find your child\u2019s class" : "Find your class"}
             </p>
             <p className="mt-1 text-sm text-brand-dark/70">
-              Tell us their grade and we&rsquo;ll place them in the right course — start today for $7.
+              {audience === "parent"
+                ? "Tell us their grade and we\u2019ll place them in the right course — start today for $7."
+                : "Tell us your grade and we\u2019ll match you to the right class — start today for $7."}
             </p>
-            <GradePicker onStart={(g) => openSignup(g)} />
+            <GradePicker audience={audience} onStart={(g) => openSignup(g)} />
             <ul className="mt-5 space-y-2 text-sm">
               <li className="flex items-center gap-2"><Check /> A structured course that builds, not random sessions</li>
               <li className="flex items-center gap-2"><Check /> Live twice a week, recordings included</li>
@@ -850,7 +852,7 @@ export default function HomePage() {
   );
 }
 
-function GradePicker({ onStart }: { onStart: (grade: string) => void }) {
+function GradePicker({ audience, onStart }: { audience: "parent" | "student"; onStart: (grade: string) => void }) {
   const [grade, setGrade] = useState("");
   const [matching, setMatching] = useState(false);
 
@@ -879,15 +881,15 @@ function GradePicker({ onStart }: { onStart: (grade: string) => void }) {
       {grade && matching && (
         <div className="mt-3 flex items-center gap-2 border-l-2 border-brand-blue bg-brand-light-blue/30 px-3 py-2 text-sm text-brand-dark">
           <span className="inline-block h-3 w-3 flex-none animate-spin border-2 border-brand-blue border-t-transparent" aria-hidden="true" />
-          <p className="font-medium">Matching your child to the right class…</p>
+          <p className="font-medium">{audience === "parent" ? "Matching your child to the right class…" : "Matching you to the right class…"}</p>
         </div>
       )}
       {grade && !matching && (
         <div className="mt-3 border-l-2 border-brand-blue bg-brand-light-blue/30 px-3 py-2 text-sm text-brand-dark">
           <p>
-            Perfect — they&rsquo;ll join{" "}
+            Perfect — {audience === "parent" ? "they\u2019ll" : "you\u2019ll"} join{" "}
             <span className="font-bold text-brand-blue">{GRADE_TO_COURSE[grade]}</span>, matched to
-            their grade.
+            {audience === "parent" ? " their" : " your"} grade.
           </p>
           <p className="mt-1 text-xs font-medium text-brand-dark/70">
             Classes: {COURSE_SCHEDULE[GRADE_TO_COURSE[grade]]}
