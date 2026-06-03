@@ -232,7 +232,7 @@ export default function HomePage() {
           </a>
           <button
             onClick={() => openSignup()}
-            className="bg-brand-green px-3 py-2 text-xs font-bold text-brand-dark transition-opacity hover:opacity-90 sm:px-4 sm:text-sm"
+            className="hidden bg-brand-green px-3 py-2 text-xs font-bold text-brand-dark transition-opacity hover:opacity-90 sm:inline-block sm:px-4 sm:text-sm"
           >
             Start Your $7 Trial
           </button>
@@ -240,7 +240,7 @@ export default function HomePage() {
       </header>
 
       <section className="relative overflow-hidden bg-brand-blue text-white">
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/2 max-w-xl" aria-hidden="true">
+        <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-1/2 max-w-xl md:block" aria-hidden="true">
           <HeroMotif />
         </div>
         <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 sm:px-5 md:grid-cols-[1.05fr_1fr] md:gap-10 md:py-16">
@@ -260,6 +260,10 @@ export default function HomePage() {
               <span><span className="font-extrabold">21,000+</span> students taught</span>
               <span><span className="font-extrabold">95%</span> parent satisfaction</span>
             </div>
+            <p className="mt-5 max-w-md border-l-2 border-brand-green pl-4 text-sm text-white/90 sm:text-base">
+              Been burned by a tutor before? This is different: the <span className="font-bold">same teacher every week</span>,
+              a structured course that builds, and every class recorded — the consistency 1-on-1 tutoring never gave you.
+            </p>
           </div>
 
           <div className="border-2 border-brand-green bg-white p-6 text-brand-dark sm:p-8">
@@ -337,6 +341,10 @@ export default function HomePage() {
               Here&rsquo;s what tutoring never gave you: a teacher who shows up at the same time
               every week, a plan that goes somewhere, and momentum that doesn&rsquo;t reset every
               session. Not recorded video. Not a stranger each month.
+            </p>
+            <p className="border-l-2 border-brand-blue pl-4 text-base text-brand-dark sm:text-lg">
+              Math is the one subject that compounds — every month a gap goes unfixed, the next
+              topic gets harder. The earlier it clicks, the easier everything after it becomes.
             </p>
           </div>
           <div className="mt-8 grid items-stretch gap-4 sm:grid-cols-[1fr_auto_1fr_auto_1fr]">
@@ -618,19 +626,21 @@ export default function HomePage() {
           </div>
 
           {/* Mobile: stacked, MyEdSpace first and highlighted */}
-          <div className="mt-8 space-y-4 md:hidden">
-            <div className="border-2 border-brand-dark bg-brand-blue p-5 text-white">
-              <span className="inline-block bg-brand-green px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-widest text-brand-dark">
-                Best value
-              </span>
-              <p className="mt-2 text-sm font-bold uppercase tracking-widest text-brand-light-blue">MyEdSpace</p>
-              <p className="mt-1 text-3xl font-extrabold">$149<span className="text-sm font-medium text-white/80">/mo · $7 to start</span></p>
-              <ul className="mt-4 space-y-2 text-sm">
-                <li className="flex gap-2"><CheckOnBlue /> Same teacher, every week</li>
-                <li className="flex gap-2"><CheckOnBlue /> Live twice a week + recordings</li>
-                <li className="flex gap-2"><CheckOnBlue /> 24/7 AI coach</li>
-                <li className="flex gap-2"><CheckOnBlue /> Structured, exam-ready curriculum</li>
-                <li className="flex gap-2"><CheckOnBlue /> Small-group learning</li>
+          <div className="mt-8 space-y-3 md:hidden">
+            <div className="border-2 border-brand-dark bg-brand-blue p-4 text-white">
+              <div className="flex items-center justify-between">
+                <p className="text-sm font-bold uppercase tracking-widest text-brand-light-blue">MyEdSpace</p>
+                <span className="inline-block bg-brand-green px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-widest text-brand-dark">
+                  Best value
+                </span>
+              </div>
+              <p className="mt-1 text-2xl font-extrabold">$149<span className="text-sm font-medium text-white/80">/mo · $7 to start</span></p>
+              <ul className="mt-3 space-y-1.5 text-sm">
+                <li className="flex items-center gap-2"><CheckOnBlue /> Same teacher, every week</li>
+                <li className="flex items-center gap-2"><CheckOnBlue /> Live twice a week + recordings</li>
+                <li className="flex items-center gap-2"><CheckOnBlue /> 24/7 AI homework coach</li>
+                <li className="flex items-center gap-2"><CheckOnBlue /> Structured, exam-ready curriculum</li>
+                <li className="flex items-center gap-2"><CheckOnBlue /> Small-group learning</li>
               </ul>
               <button
                 onClick={() => openSignup()}
@@ -639,23 +649,23 @@ export default function HomePage() {
                 Start Your $7 Trial →
               </button>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3">
               <div className="border-2 border-brand-dark bg-white p-4">
                 <p className="text-xs font-bold uppercase tracking-widest text-brand-dark/60">School</p>
-                <p className="mt-1 text-xl font-extrabold">Free</p>
-                <ul className="mt-3 space-y-2 text-xs text-brand-dark">
-                  <li className="flex gap-1.5"><Cross /> No recordings</li>
-                  <li className="flex gap-1.5"><Cross /> 30 per class</li>
-                  <li className="flex gap-1.5"><Cross /> Fixed pace</li>
+                <p className="mt-1 text-lg font-extrabold">Free</p>
+                <ul className="mt-2 space-y-1.5 text-xs text-brand-dark/80">
+                  <li className="flex items-center gap-1.5"><Cross /> No recordings</li>
+                  <li className="flex items-center gap-1.5"><Cross /> 30 per class</li>
+                  <li className="flex items-center gap-1.5"><Cross /> Fixed pace</li>
                 </ul>
               </div>
               <div className="border-2 border-brand-dark bg-white p-4">
                 <p className="text-xs font-bold uppercase tracking-widest text-brand-dark/60">Private tutor</p>
-                <p className="mt-1 text-xl font-extrabold">$640+</p>
-                <ul className="mt-3 space-y-2 text-xs text-brand-dark">
-                  <li className="flex gap-1.5"><Cross /> No recordings</li>
-                  <li className="flex gap-1.5"><Cross /> No AI coach</li>
-                  <li className="flex gap-1.5"><Cross /> Quality varies</li>
+                <p className="mt-1 text-lg font-extrabold">$640+</p>
+                <ul className="mt-2 space-y-1.5 text-xs text-brand-dark/80">
+                  <li className="flex items-center gap-1.5"><Cross /> No recordings</li>
+                  <li className="flex items-center gap-1.5"><Cross /> No AI coach</li>
+                  <li className="flex items-center gap-1.5"><Cross /> Quality varies</li>
                 </ul>
               </div>
             </div>
@@ -702,9 +712,12 @@ export default function HomePage() {
             </h2>
             <p className="text-brand-dark/70">21,000+ students taught across the US.</p>
           </div>
-          <div className="mt-8 grid gap-[2px] border-2 border-brand-dark bg-brand-dark sm:grid-cols-2 md:mt-10 lg:grid-cols-3">
+          <div className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 md:mt-10 [-ms-overflow-style:none] [scrollbar-width:thin]">
             {reviews.map((r) => (
-              <article key={r.name} className="flex flex-col bg-white p-6">
+              <article
+                key={r.name}
+                className="flex w-[280px] flex-none snap-start flex-col border-2 border-brand-dark bg-white p-6 sm:w-[340px]"
+              >
                 <Stars />
                 <p className="mt-3 font-bold">{r.title}</p>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-brand-dark/80">{r.body}</p>
@@ -714,6 +727,9 @@ export default function HomePage() {
               </article>
             ))}
           </div>
+          <p className="mt-2 text-center text-xs font-medium text-brand-dark/50 md:text-left">
+            Swipe to read more →
+          </p>
         </div>
       </section>
 
@@ -818,11 +834,23 @@ export default function HomePage() {
 
 function GradePicker({ onStart }: { onStart: (grade: string) => void }) {
   const [grade, setGrade] = useState("");
+  const [matching, setMatching] = useState(false);
+
+  function handleChange(g: string) {
+    setGrade(g);
+    if (g) {
+      setMatching(true);
+      setTimeout(() => setMatching(false), 800);
+    } else {
+      setMatching(false);
+    }
+  }
+
   return (
     <div className="mt-4">
       <select
         value={grade}
-        onChange={(e) => setGrade(e.target.value)}
+        onChange={(e) => handleChange(e.target.value)}
         className="w-full border-2 border-brand-dark bg-white px-4 py-3 text-base font-medium focus:outline-none focus:ring-2 focus:ring-brand-blue"
       >
         <option value="">Choose grade…</option>
@@ -830,7 +858,13 @@ function GradePicker({ onStart }: { onStart: (grade: string) => void }) {
           <option key={g} value={g}>Grade {g}</option>
         ))}
       </select>
-      {grade && (
+      {grade && matching && (
+        <div className="mt-3 flex items-center gap-2 border-l-2 border-brand-blue bg-brand-light-blue/30 px-3 py-2 text-sm text-brand-dark">
+          <span className="inline-block h-3 w-3 flex-none animate-spin border-2 border-brand-blue border-t-transparent" aria-hidden="true" />
+          <p className="font-medium">Matching your child to the right class…</p>
+        </div>
+      )}
+      {grade && !matching && (
         <div className="mt-3 border-l-2 border-brand-blue bg-brand-light-blue/30 px-3 py-2 text-sm text-brand-dark">
           <p>
             Perfect — they&rsquo;ll join{" "}
@@ -844,14 +878,14 @@ function GradePicker({ onStart }: { onStart: (grade: string) => void }) {
       )}
       <button
         onClick={() => onStart(grade)}
-        disabled={!grade}
+        disabled={!grade || matching}
         className={
-          grade
+          grade && !matching
             ? "mt-4 w-full bg-brand-green px-4 py-4 text-base font-bold text-brand-dark transition-opacity hover:opacity-90"
             : "mt-4 w-full cursor-not-allowed border-2 border-dashed border-brand-dark/30 bg-white px-4 py-4 text-sm font-semibold text-brand-dark/50"
         }
       >
-        {grade ? "Start My $7 Trial →" : "↑ Select a grade to continue"}
+        {grade && !matching ? "Start My $7 Trial →" : grade && matching ? "Finding the right class…" : "↑ Select a grade to continue"}
       </button>
     </div>
   );
