@@ -217,6 +217,7 @@ function SectionHeader({
 export default function HomePage() {
   const [signupOpen, setSignupOpen] = useState(false);
   const [presetGrade, setPresetGrade] = useState<string>("");
+  const [audience, setAudience] = useState<"parent" | "student">("parent");
 
   function openSignup(grade?: string) {
     setPresetGrade(grade ?? "");
@@ -245,15 +246,32 @@ export default function HomePage() {
         </div>
         <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 sm:px-5 md:grid-cols-[1.05fr_1fr] md:gap-10 md:py-16">
           <div>
-            <p className="mb-4 inline-block border-2 border-white/40 px-3 py-1 text-xs font-bold uppercase tracking-widest text-white">
+            <div className="mb-4 inline-flex border-2 border-white/40">
+              <button
+                onClick={() => setAudience("parent")}
+                className={audience === "parent" ? "px-4 py-1.5 text-xs font-bold uppercase tracking-widest bg-white text-brand-blue" : "px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white/80"}
+              >
+                I&rsquo;m a parent
+              </button>
+              <button
+                onClick={() => setAudience("student")}
+                className={audience === "student" ? "px-4 py-1.5 text-xs font-bold uppercase tracking-widest bg-white text-brand-blue" : "px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white/80"}
+              >
+                I&rsquo;m a student
+              </button>
+            </div>
+            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-brand-light-blue">
               Live Online Math · Grades 4&ndash;12
             </p>
             <h1 className="text-[2.1rem] font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
-              The math help that finally sticks — for $7.
+              {audience === "parent"
+                ? "The math help that finally sticks — for $7."
+                : "Math that finally makes sense — for $7."}
             </h1>
             <p className="mt-5 max-w-md text-base text-white/85 sm:text-lg">
-              Live online classes twice a week with the same expert teacher every time. For grade
-              4&ndash;12 students who need more than school gives them.
+              {audience === "parent"
+                ? "Live online classes twice a week with the same expert teacher every time. For grade 4–12 students who need more than school gives them."
+                : "Live classes twice a week with a teacher who actually explains it — so you walk into tests knowing you've got this."}
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-medium text-white">
               <span className="flex items-center gap-1.5"><Stars /> 4.8 rating</span>
@@ -1023,9 +1041,27 @@ function SignupModal({ presetGrade, onClose }: { presetGrade: string; onClose: (
               </div>
               <p className="mt-2 text-sm text-brand-dark/80">
                 We&rsquo;ve emailed your class schedule and login to{" "}
-                <span className="font-bold">{email}</span>. Eddie will see your child in their first
-                live {grade ? GRADE_TO_COURSE[grade] : "math"} class this week.
+                <span className="font-bold">{email}</span>.
               </p>
+              <div className="mt-4 border-2 border-brand-dark">
+                <p className="border-b-2 border-brand-dark bg-brand-light-blue/30 px-4 py-2 text-xs font-bold uppercase tracking-widest text-brand-dark">
+                  What happens next
+                </p>
+                <ol className="divide-y-2 divide-brand-dark/10">
+                  <li className="flex gap-3 px-4 py-3">
+                    <span className="flex h-6 w-6 flex-none items-center justify-center bg-brand-blue text-xs font-extrabold text-white">1</span>
+                    <p className="text-sm text-brand-dark/80"><span className="font-bold text-brand-dark">Check your email</span> — login + class link, arriving now.</p>
+                  </li>
+                  <li className="flex gap-3 px-4 py-3">
+                    <span className="flex h-6 w-6 flex-none items-center justify-center bg-brand-blue text-xs font-extrabold text-white">2</span>
+                    <p className="text-sm text-brand-dark/80"><span className="font-bold text-brand-dark">Join the first live class this week</span> — {grade ? GRADE_TO_COURSE[grade] : "math"}, with {grade && (GRADE_TO_COURSE[grade] === "Elementary Math" || GRADE_TO_COURSE[grade] === "Pre-Algebra") ? "Adam" : "Eddie"}.</p>
+                  </li>
+                  <li className="flex gap-3 px-4 py-3">
+                    <span className="flex h-6 w-6 flex-none items-center justify-center bg-brand-blue text-xs font-extrabold text-white">3</span>
+                    <p className="text-sm text-brand-dark/80"><span className="font-bold text-brand-dark">Only $7 today.</span> Your $149/mo starts after 7 days — cancel anytime before then, no charge.</p>
+                  </li>
+                </ol>
+              </div>
               <div className="mt-5 border-2 border-brand-dark p-4">
                 <p className="text-sm font-bold">Want class reminders by text? (optional)</p>
                 <p className="mt-1 text-xs text-brand-dark/60">
