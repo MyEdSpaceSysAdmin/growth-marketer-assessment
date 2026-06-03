@@ -1,42 +1,1130 @@
+"use client";
+
 /**
- * MyEdSpace US homepage.
- *
- * This is the file you'll build out for the assessment.
- *
- * Read in this order before touching anything:
- *   1. README.md
- *   2. CLAUDE.md
- *   3. BRIEF.md
- *   4. docs/GROWTH_PRINCIPLES.md
- *   5. docs/WIREFRAME.md
- *   6. docs/REVIEWS.json
- *
- * Then open Claude Code in the repo root (`claude`) and get to work.
- *
- * Reminder: we are not evaluating whether you wrote this code yourself.
- * We are evaluating how you direct an AI agent to ship something that
- * converts. Drive Claude Code well.
+ * MyEdSpace US Landing Page — cold US paid traffic -> $7 trial, no human in the loop.
+ * Flat design (radius 0, no shadows, Inter). Brand tokens only. Lime = CTA only.
+ * Lead principle: Loss Aversion / Risk Reversal (growth.design/psychology).
+ * Real assets: img/eddie_1, img/eddie_2, video/MES_intro.mp4, img/favicon.webp, 4 curriculum PDFs.
+ * Skipped img/eddie_3 (shows name "Daniel Khan", conflicts with "Eddie Kang") — see NOTES.md.
  */
 
-export default function HomePage() {
+import { useState, type ReactNode } from "react";
+import reviewsData from "../docs/REVIEWS.json";
+
+type Review = {
+  rating: number;
+  title: string;
+  body: string;
+  name: string;
+  city: string;
+  date: string;
+};
+
+const reviews = reviewsData as Review[];
+
+const GRADES = ["4", "5", "6", "7", "8", "9", "10", "11", "12"] as const;
+const GRADE_TO_COURSE: Record<string, string> = {
+  "4": "Elementary Math",
+  "5": "Elementary Math",
+  "6": "Pre-Algebra",
+  "7": "Pre-Algebra",
+  "8": "Algebra I",
+  "9": "Algebra I",
+  "10": "Geometry",
+  "11": "Algebra II",
+  "12": "Algebra II",
+};
+const COURSE_SCHEDULE: Record<string, string> = {
+  "Elementary Math": "Mon & Wed · 6:00 PM PT · 45 min",
+  "Pre-Algebra": "Mon & Wed · 5:00 PM PT · 60 min",
+  "Algebra I": "Tue & Thu · 6:00 PM PT · 60 min",
+  "Geometry": "Tue & Thu · 5:00 PM PT · 60 min",
+  "Algebra II": "Mon & Wed · 5:00 PM PT · 60 min",
+};
+
+function Star() {
   return (
-    <main className="min-h-screen flex items-center justify-center p-8">
-      <div className="max-w-md text-center">
-        <div className="inline-block w-12 h-12 rounded-md bg-brand-blue mb-6" />
-        <h1 className="text-2xl font-bold text-brand-dark">
-          MyEdSpace assessment scaffold
-        </h1>
-        <p className="mt-3 text-brand-dark/70">
-          Replace this with the landing page described in{" "}
-          <code className="px-1.5 py-0.5 bg-black/5 rounded text-sm">
-            BRIEF.md
-          </code>
-          .
-        </p>
-        <p className="mt-2 text-sm text-brand-dark/50">
-          See <code>README.md</code> for instructions.
-        </p>
+    <svg viewBox="0 0 20 20" className="h-4 w-4" aria-hidden="true">
+      <path
+        d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.8L10 14.9l-5.2 2.72.99-5.8-4.21-4.1 5.82-.85L10 1.5z"
+        fill="#b1db00"
+        stroke="#b1db00"
+        strokeWidth="1"
+      />
+    </svg>
+  );
+}
+
+function Check() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-5 w-5 flex-none" aria-hidden="true">
+      <path d="M5 13l4 4L19 7" fill="none" stroke="#3533ff" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function CheckOnBlue() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-5 w-5 flex-none" aria-hidden="true">
+      <path d="M5 13l4 4L19 7" fill="none" stroke="#b1db00" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function Cell({ v, onBlue = false }: { v: boolean | string; onBlue?: boolean }) {
+  if (v === "varies") {
+    return (
+      <span className={`text-xs font-bold uppercase tracking-wide ${onBlue ? "text-brand-light-blue" : "text-brand-dark/50"}`}>
+        Varies
+      </span>
+    );
+  }
+  if (v === true) {
+    return (
+      <svg viewBox="0 0 24 24" className="h-6 w-6" aria-label="Yes">
+        <path d="M5 13l4 4L19 7" fill="none" stroke={onBlue ? "#b1db00" : "#3533ff"} strokeWidth="2.5" />
+      </svg>
+    );
+  }
+  return (
+    <svg viewBox="0 0 24 24" className="h-6 w-6" aria-label="No">
+      <path d="M6 6l12 12M18 6L6 18" fill="none" stroke={onBlue ? "#ffffff" : "#101626"} strokeWidth="2.5" opacity={onBlue ? "0.5" : "0.3"} />
+    </svg>
+  );
+}
+
+function Cross() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-5 w-5 flex-none" aria-hidden="true">
+      <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function Lock() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">
+      <rect x="5" y="11" width="14" height="9" fill="none" stroke="currentColor" strokeWidth="2" />
+      <path d="M8 11V8a4 4 0 018 0v3" fill="none" stroke="currentColor" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function Stars() {
+  return (
+    <span className="flex" aria-label="5 out of 5 stars">
+      <Star /><Star /><Star /><Star /><Star />
+    </span>
+  );
+}
+
+function HeroMotif() {
+  return (
+    <svg
+      viewBox="0 0 400 400"
+      className="h-full w-full"
+      preserveAspectRatio="xMidYMid slice"
+      aria-hidden="true"
+    >
+      <g stroke="#ffffff" strokeWidth="1" opacity="0.12">
+        <line x1="0" y1="80" x2="400" y2="80" />
+        <line x1="0" y1="160" x2="400" y2="160" />
+        <line x1="0" y1="240" x2="400" y2="240" />
+        <line x1="0" y1="320" x2="400" y2="320" />
+        <line x1="80" y1="0" x2="80" y2="400" />
+        <line x1="160" y1="0" x2="160" y2="400" />
+        <line x1="240" y1="0" x2="240" y2="400" />
+        <line x1="320" y1="0" x2="320" y2="400" />
+      </g>
+      <rect x="80" y="160" width="80" height="80" fill="#ffffff" opacity="0.06" />
+      <rect x="240" y="80" width="80" height="80" fill="#b1db00" opacity="0.14" />
+      <rect x="160" y="240" width="80" height="80" fill="#a3e1f0" opacity="0.12" />
+    </svg>
+  );
+}
+
+function StepArrow() {
+  return (
+    <svg viewBox="0 0 40 24" className="h-5 w-8 flex-none" aria-hidden="true">
+      <path d="M4 12h28M24 4l8 8-8 8" fill="none" stroke="#3533ff" strokeWidth="2" />
+    </svg>
+  );
+}
+
+// Flexible section header. Vary align ("left" | "center"), eyebrow style
+// ("block" = solid blue tag, "line" = blue rule beside text), and accent
+// ("underline" | "none") section-to-section for rhythm. Lime stays CTA-only.
+function SectionHeader({
+  eyebrow,
+  title,
+  align = "center",
+  eyebrowStyle = "block",
+  accent = "none",
+  onDark = false,
+}: {
+  eyebrow: string;
+  title: ReactNode;
+  align?: "left" | "center";
+  eyebrowStyle?: "block" | "line";
+  accent?: "underline" | "none";
+  onDark?: boolean;
+}) {
+  const wrap = align === "center" ? "text-center" : "text-left";
+  const flexAlign = align === "center" ? "justify-center" : "justify-start";
+  return (
+    <div className={wrap}>
+      {eyebrowStyle === "block" ? (
+        <div className={`flex ${flexAlign}`}>
+          <span
+            className={`inline-block px-3 py-1 text-xs font-bold uppercase tracking-widest ${
+              onDark ? "bg-white text-brand-blue" : "bg-brand-blue text-white"
+            }`}
+          >
+            {eyebrow}
+          </span>
+        </div>
+      ) : (
+        <div className={`flex items-center gap-3 ${flexAlign}`}>
+          <span className={`h-0.5 w-8 ${onDark ? "bg-brand-light-blue" : "bg-brand-blue"}`} />
+          <span
+            className={`text-xs font-bold uppercase tracking-widest ${
+              onDark ? "text-brand-light-blue" : "text-brand-blue"
+            }`}
+          >
+            {eyebrow}
+          </span>
+        </div>
+      )}
+      <h2
+        className={`mt-3 text-2xl font-extrabold tracking-tight sm:text-4xl ${
+          onDark ? "text-white" : "text-brand-dark"
+        }`}
+      >
+        {title}
+      </h2>
+      {accent === "underline" && (
+        <div
+          className={`mt-3 h-1 w-20 ${align === "center" ? "mx-auto" : ""} ${
+            onDark ? "bg-brand-light-blue" : "bg-brand-blue"
+          }`}
+          aria-hidden="true"
+        />
+      )}
+    </div>
+  );
+}
+
+export default function HomePage() {
+  const [signupOpen, setSignupOpen] = useState(false);
+  const [presetGrade, setPresetGrade] = useState<string>("");
+  const [audience, setAudience] = useState<"parent" | "student">("parent");
+
+  function openSignup(grade?: string) {
+    setPresetGrade(grade ?? "");
+    setSignupOpen(true);
+  }
+
+  return (
+    <main className="bg-white font-sans text-brand-dark antialiased">
+      <header className="sticky top-0 z-40 border-b-2 border-brand-dark bg-white">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-5">
+          <a href="#" className="flex items-center">
+            <img src="/assets/img/mes-logo-main-blue.webp" alt="MyEdSpace" className="h-7 w-auto sm:h-8" />
+          </a>
+          <button
+            onClick={() => openSignup()}
+            className="hidden bg-brand-green px-3 py-2 text-xs font-bold text-brand-dark transition-opacity hover:opacity-90 sm:inline-block sm:px-4 sm:text-sm"
+          >
+            Start Your $7 Trial
+          </button>
+        </div>
+      </header>
+
+      <section className="relative overflow-hidden bg-brand-blue text-white">
+        <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-1/2 max-w-xl md:block" aria-hidden="true">
+          <HeroMotif />
+        </div>
+        <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 sm:px-5 md:grid-cols-[1.05fr_1fr] md:gap-10 md:py-16">
+          <div>
+            <div className="mb-4 inline-flex border-2 border-white/40">
+              <button
+                onClick={() => setAudience("parent")}
+                className={audience === "parent" ? "px-4 py-1.5 text-xs font-bold uppercase tracking-widest bg-white text-brand-blue" : "px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white/80"}
+              >
+                I&rsquo;m a parent
+              </button>
+              <button
+                onClick={() => setAudience("student")}
+                className={audience === "student" ? "px-4 py-1.5 text-xs font-bold uppercase tracking-widest bg-white text-brand-blue" : "px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white/80"}
+              >
+                I&rsquo;m a student
+              </button>
+            </div>
+            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-brand-light-blue">
+              Live Online Math · Grades 4&ndash;12
+            </p>
+            <h1 className="text-[2.1rem] font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
+              {audience === "parent"
+                ? "The math help that finally sticks — for $7."
+                : "Math that finally makes sense — for $7."}
+            </h1>
+            <p className="mt-5 max-w-md text-base text-white/85 sm:text-lg">
+              {audience === "parent"
+                ? "Live online classes twice a week with the same expert teacher every time. For grade 4–12 students who need more than school gives them."
+                : "Live classes twice a week with a teacher who actually explains it — so you walk into tests knowing you've got this."}
+            </p>
+            <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-medium text-white">
+              <span className="flex items-center gap-1.5"><Stars /> 4.8 rating</span>
+              <span><span className="font-extrabold">21,000+</span> students taught</span>
+              <span><span className="font-extrabold">95%</span> parent satisfaction</span>
+            </div>
+            <p className="mt-5 max-w-md border-l-2 border-brand-green pl-4 text-sm text-white/90 sm:text-base">
+              Been burned by a tutor before? This is different: the <span className="font-bold">same teacher every week</span>,
+              a structured course that builds, and every class recorded — the consistency 1-on-1 tutoring never gave you.
+            </p>
+          </div>
+
+          <div className="border-2 border-brand-green bg-white p-6 text-brand-dark sm:p-8">
+            <p className="text-base font-extrabold uppercase tracking-wide text-brand-blue">
+              {audience === "parent" ? "Find your child\u2019s class" : "Find your class"}
+            </p>
+            <p className="mt-1 text-sm text-brand-dark/70">
+              {audience === "parent"
+                ? "Tell us their grade and we\u2019ll place them in the right course — start today for $7."
+                : "Tell us your grade and we\u2019ll match you to the right class — start today for $7."}
+            </p>
+            <GradePicker audience={audience} onStart={(g) => openSignup(g)} />
+            <ul className="mt-5 space-y-2 text-sm">
+              <li className="flex items-center gap-2"><Check /> A structured course that builds, not random sessions</li>
+              <li className="flex items-center gap-2"><Check /> Live twice a week, recordings included</li>
+              <li className="flex items-center gap-2"><Check /> Cancel anytime · 30-day money-back guarantee</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white">
+        <div className="mx-auto max-w-5xl px-4 py-12 sm:px-5 md:py-16">
+          <SectionHeader
+            eyebrow="Trusted by families worldwide"
+            title="21,000+ students. One reason they stay: it works."
+            align="center"
+            eyebrowStyle="block"
+          />
+          <div className="mt-8 grid grid-cols-2 divide-x-2 divide-y-2 divide-brand-dark border-2 border-brand-dark sm:grid-cols-4 sm:divide-y-0">
+            {[
+              ["21,000+", "Students taught"],
+              ["95%", "Parent satisfaction"],
+              ["4.8★", "Average rating"],
+              ["83%", "Improved confidence"],
+            ].map(([stat, label]) => (
+              <div key={label} className="bg-white px-4 py-8 text-center sm:py-10">
+                <p className="text-2xl font-extrabold text-brand-blue sm:text-3xl">{stat}</p>
+                <p className="mt-2 text-xs font-bold uppercase tracking-widest text-brand-dark/60">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b-2 border-brand-dark bg-brand-light-blue/40">
+        <div className="mx-auto max-w-4xl px-4 py-14 sm:px-5 md:py-20">
+          <SectionHeader
+            eyebrow="See it first"
+            title="Meet the teacher before you spend a cent"
+            align="left"
+            eyebrowStyle="line"
+          />
+          <p className="mt-3 max-w-xl text-brand-dark/70">
+            Watch Eddie explain how MyEdSpace classes work — then start your $7 trial.
+          </p>
+          <div className="mt-8 border-2 border-brand-dark bg-brand-dark">
+            <video controls preload="metadata" poster="/assets/img/eddie_2.webp" className="aspect-video w-full">
+              <source src="/assets/video/MES_intro.mp4" type="video/mp4" />
+              Your browser doesn&rsquo;t support video playback.
+            </video>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b-2 border-brand-dark bg-white">
+        <div className="mx-auto max-w-4xl px-4 py-14 sm:px-5 md:py-20">
+          <SectionHeader
+            eyebrow="How it works"
+            title="Not tutoring. Not school. Something built to actually move the grade."
+            align="center"
+            eyebrowStyle="block"
+            accent="underline"
+          />
+          <div className="mt-8 space-y-5 text-base leading-relaxed text-brand-dark/80 sm:text-lg">
+            <p>
+              Here&rsquo;s what tutoring never gave you: a teacher who shows up at the same time
+              every week, a plan that goes somewhere, and momentum that doesn&rsquo;t reset every
+              session. Not recorded video. Not a stranger each month.
+            </p>
+            <p className="border-l-2 border-brand-blue pl-4 text-base text-brand-dark sm:text-lg">
+              Math is the one subject that compounds — every month a gap goes unfixed, the next
+              topic gets harder. The earlier it clicks, the easier everything after it becomes.
+            </p>
+          </div>
+          <div className="mt-8 grid items-stretch gap-4 sm:grid-cols-[1fr_auto_1fr_auto_1fr]">
+            {[
+              ["1", "Live, twice a week", "Real teaching in real time, grouped by your child's grade."],
+              ["2", "Builds week on week", "Every lesson connects to the last. No gaps, no cramming."],
+              ["3", "Support between classes", "Practice that reinforces, plus a 24/7 AI coach for stuck moments."],
+            ].map(([num, t, b], i) => (
+              <div key={t} className="contents">
+                <div className="border-2 border-brand-dark bg-white p-5">
+                  <span className="flex h-9 w-9 items-center justify-center bg-brand-blue text-base font-extrabold text-white">
+                    {num}
+                  </span>
+                  <p className="mt-3 font-bold">{t}</p>
+                  <p className="mt-2 text-sm text-brand-dark/70">{b}</p>
+                </div>
+                {i < 2 && (
+                  <div className="flex items-center justify-center py-1 sm:py-0">
+                    <span className="rotate-90 sm:rotate-0">
+                      <StepArrow />
+                    </span>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-brand-light-blue/40">
+        <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 md:py-20">
+          <div className="text-center">
+            <p className="text-sm font-bold uppercase tracking-widest text-brand-blue">
+              Meet your teachers
+            </p>
+            <h2 className="mt-3 text-2xl font-extrabold tracking-tight sm:text-4xl">
+              Real US teachers, not rotating tutors.
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-brand-dark/70">
+              No rotating tutors, no grad students. Your child learns from one expert teacher who
+              shows up live twice a week — matched to their grade and course.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
+            {/* Eddie */}
+            <div className="border-2 border-brand-dark bg-white">
+              <div className="h-64 overflow-hidden border-b-2 border-brand-dark bg-brand-light-blue/40">
+                <img
+                  src="/assets/img/eddie_5.webp"
+                  alt="Eddie Kang, MyEdSpace math teacher"
+                  className="h-full w-full object-cover object-top"
+                />
+              </div>
+              <div className="p-6">
+                <p className="text-xl font-extrabold">Eddie Kang</p>
+                <p className="mt-1 text-sm font-bold text-brand-blue">
+                  Algebra I &amp; II · Geometry · AP Calculus
+                </p>
+                <ul className="mt-4 space-y-2 text-sm">
+                  <li className="flex gap-2"><Check /> UCLA Pure Math degree</li>
+                  <li className="flex gap-2"><Check /> Perfect SAT Math score (800/800)</li>
+                  <li className="flex gap-2"><Check /> 9+ years teaching in California schools</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Adam */}
+            <div className="border-2 border-brand-dark bg-white">
+              <div className="h-64 overflow-hidden border-b-2 border-brand-dark bg-brand-light-blue/40">
+                <img
+                  src="/assets/img/adam_1.webp"
+                  alt="Adam Gilbert, MyEdSpace math teacher"
+                  className="h-full w-full object-cover object-top"
+                />
+              </div>
+              <div className="p-6">
+                <p className="text-xl font-extrabold">Adam Gilbert</p>
+                <p className="mt-1 text-sm font-bold text-brand-blue">
+                  Pre-Algebra · Earlier grades · AP Pre-Calculus
+                </p>
+                <ul className="mt-4 space-y-2 text-sm">
+                  <li className="flex gap-2"><Check /> Brown University degree</li>
+                  <li className="flex gap-2"><Check /> 7+ years teaching in US charter schools</li>
+                  <li className="flex gap-2"><Check /> Specialist in building strong foundations</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-brand-blue text-white">
+        <div className="mx-auto grid max-w-5xl items-center gap-8 px-4 py-14 sm:px-5 md:grid-cols-2 md:gap-12 md:py-20">
+          <div>
+            <SectionHeader
+              eyebrow="Why MyEdSpace"
+              title="A real teacher and a real plan — not a tutor you hope shows up."
+              align="left"
+              eyebrowStyle="block"
+              onDark
+            />
+            <p className="mt-4 text-base leading-relaxed text-white/85 sm:text-lg">
+              School moves too fast for 30 kids at once. Tutors cost a fortune and still leave gaps.
+              MyEdSpace gives your child the same top US teacher every week, a course that builds
+              toward the exams that matter, and help between classes — for less than a few hours with
+              a tutor.
+            </p>
+          </div>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest text-brand-light-blue">
+              How learning builds here
+            </p>
+            <div className="mt-4 space-y-2">
+              {[
+                ["Foundations", "Fill the gaps school left behind"],
+                ["Core skills", "Build fluency, week on week"],
+                ["Confidence", "They start putting their hand up"],
+                ["Exam-ready", "Walking in prepared, not panicked"],
+              ].map(([title, sub], i) => (
+                <div
+                  key={title}
+                  className="flex items-center gap-3 border-2 border-white/25 bg-white/5 p-3"
+                  style={{ marginLeft: `${i * 14}px` }}
+                >
+                  <span className="flex h-7 w-7 flex-none items-center justify-center bg-brand-green text-sm font-extrabold text-brand-dark">
+                    {i + 1}
+                  </span>
+                  <div>
+                    <p className="text-sm font-bold text-white">{title}</p>
+                    <p className="text-xs text-white/75">{sub}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-4 text-sm font-medium text-white/75">
+              Every topic builds on the last — structured, not a one-off cram.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y-2 border-brand-dark bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-5 md:py-20">
+          <SectionHeader
+            eyebrow="What's included"
+            title="Everything included, one price"
+            align="center"
+            eyebrowStyle="block"
+          />
+          <div className="mt-8 grid gap-[2px] border-2 border-brand-dark bg-brand-dark sm:grid-cols-2 md:mt-10 lg:grid-cols-3">
+            {[
+              ["2 live classes every week", "Real-time teaching with Eddie, in your timezone."],
+              ["Every class recorded", "Miss one? Watch the replay any time — no catching up alone."],
+              ["Workbooks & homework", "Printable materials that match each lesson. No scrambling."],
+              ["Video solutions", "On-demand walkthroughs for every topic, so nothing gets left behind."],
+              ["24/7 AI math coach", "Unlimited help between lessons, day or night."],
+              ["Built toward US exams", "Every course builds toward PSAT, SAT, ACT and AP."],
+            ].map(([title, body]) => (
+              <div key={title} className="bg-white p-6">
+                <p className="font-bold">{title}</p>
+                <p className="mt-2 text-sm text-brand-dark/70">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b-2 border-brand-dark bg-brand-light-blue/40">
+        <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 md:py-20">
+          <SectionHeader
+            eyebrow="The curriculum"
+            title={<>See exactly what they&rsquo;ll learn</>}
+            align="center"
+            eyebrowStyle="line"
+          />
+          <p className="mx-auto mt-3 max-w-xl text-center text-brand-dark/70">
+            Full month-by-month curriculum for every course — built toward US exams.
+          </p>
+          <div className="mt-8 grid gap-[2px] border-2 border-brand-dark bg-brand-dark sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              ["Pre-Algebra", "/assets/curriculum/pre-algebra.pdf"],
+              ["Algebra I", "/assets/curriculum/algebra-i.pdf"],
+              ["Geometry", "/assets/curriculum/geometry.pdf"],
+              ["Algebra II", "/assets/curriculum/algebra-ii.pdf"],
+            ].map(([name, href]) => (
+              <a
+                key={name}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between bg-white p-6 transition-colors hover:bg-brand-light-blue/30"
+              >
+                <span className="font-bold">{name}</span>
+                <span className="text-sm font-bold text-brand-blue">View &rarr;</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y-2 border-brand-dark bg-white text-brand-dark">
+        <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 md:py-20">
+          <SectionHeader
+            eyebrow="What makes MyEdSpace better"
+            title={<>The gap school doesn&rsquo;t fill — without the tutor price</>}
+            align="center"
+            eyebrowStyle="block"
+            accent="underline"
+          />
+          {/* Desktop: true comparison table, MyEdSpace centre column elevated */}
+          <div className="mt-10 hidden md:block">
+            <div className="grid grid-cols-[1.6fr_1fr_1.1fr_1fr] border-l-2 border-t-2 border-brand-dark">
+              {/* Header row */}
+              <div className="flex items-end border-b-2 border-r-2 border-brand-dark bg-white p-4">
+                <p className="text-lg font-extrabold leading-tight text-brand-dark">
+                  What you get,<br />side by side
+                </p>
+              </div>
+              <div className="border-b-2 border-r-2 border-brand-dark bg-white px-4 pb-4 pt-5 text-center">
+                <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/60">School</p>
+                <p className="mt-1 text-2xl font-extrabold text-brand-dark">Free</p>
+              </div>
+              <div className="border-b-2 border-r-2 border-brand-dark bg-brand-blue px-4 pb-5 pt-5 text-center text-white">
+                <span className="inline-block bg-brand-green px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-widest text-brand-dark">
+                  Best value
+                </span>
+                <p className="mt-2 text-sm font-bold uppercase tracking-widest text-brand-light-blue">MyEdSpace</p>
+                <p className="mt-1 text-3xl font-extrabold">
+                  $149<span className="text-sm font-medium text-white/80">/mo</span>
+                </p>
+                <p className="text-xs font-bold text-brand-green">$7 to start</p>
+              </div>
+              <div className="border-b-2 border-r-2 border-brand-dark bg-white px-4 pb-4 pt-5 text-center">
+                <p className="text-sm font-bold uppercase tracking-widest text-brand-dark/60">Private tutor</p>
+                <p className="mt-1 text-2xl font-extrabold text-brand-dark">$640+<span className="text-sm font-medium text-brand-dark/60">/mo</span></p>
+              </div>
+
+              {/* Feature rows */}
+              {[
+                ["Learn at your child's pace", true, true, false],
+                ["Expert teacher every session", true, "varies", true],
+                ["Same teacher every week", true, "varies", false],
+                ["Live classes twice a week", true, true, false],
+                ["Lesson recordings included", true, false, false],
+                ["24/7 AI homework coach", true, false, false],
+                ["Structured exam-ready curriculum", true, "varies", true],
+                ["Small-group learning", true, false, false],
+              ].map(([feature, mes, tutor, school]) => (
+                <div key={feature as string} className="contents">
+                  <div className="flex items-center border-b-2 border-r-2 border-brand-dark bg-white px-4 py-3 text-sm font-semibold">
+                    {feature}
+                  </div>
+                  <div className="flex items-center justify-center border-b-2 border-r-2 border-brand-dark bg-white px-4 py-3">
+                    <Cell v={school} />
+                  </div>
+                  <div className="flex items-center justify-center border-b-2 border-r-2 border-brand-dark bg-brand-blue px-4 py-3">
+                    <Cell v={mes} onBlue />
+                  </div>
+                  <div className="flex items-center justify-center border-b-2 border-r-2 border-brand-dark bg-white px-4 py-3">
+                    <Cell v={tutor} />
+                  </div>
+                </div>
+              ))}
+
+              {/* CTA row under MyEdSpace */}
+              <div className="border-b-2 border-r-2 border-brand-dark bg-white" />
+              <div className="border-b-2 border-r-2 border-brand-dark bg-white" />
+              <div className="border-b-2 border-r-2 border-brand-dark bg-brand-blue p-4">
+                <button
+                  onClick={() => openSignup()}
+                  className="w-full bg-brand-green px-4 py-3 text-sm font-bold text-brand-dark transition-opacity hover:opacity-90"
+                >
+                  Start Your $7 Trial →
+                </button>
+              </div>
+              <div className="border-b-2 border-r-2 border-brand-dark bg-white" />
+            </div>
+          </div>
+
+          {/* Mobile: stacked, MyEdSpace first and highlighted */}
+          <div className="mt-8 space-y-3 md:hidden">
+            <div className="border-2 border-brand-dark bg-brand-blue p-4 text-white">
+              <div className="flex items-center justify-between">
+                <p className="text-sm font-bold uppercase tracking-widest text-brand-light-blue">MyEdSpace</p>
+                <span className="inline-block bg-brand-green px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-widest text-brand-dark">
+                  Best value
+                </span>
+              </div>
+              <p className="mt-1 text-2xl font-extrabold">$149<span className="text-sm font-medium text-white/80">/mo · $7 to start</span></p>
+              <ul className="mt-3 space-y-1.5 text-sm">
+                <li className="flex items-center gap-2"><CheckOnBlue /> Same teacher, every week</li>
+                <li className="flex items-center gap-2"><CheckOnBlue /> Live twice a week + recordings</li>
+                <li className="flex items-center gap-2"><CheckOnBlue /> 24/7 AI homework coach</li>
+                <li className="flex items-center gap-2"><CheckOnBlue /> Structured, exam-ready curriculum</li>
+                <li className="flex items-center gap-2"><CheckOnBlue /> Small-group learning</li>
+              </ul>
+              <button
+                onClick={() => openSignup()}
+                className="mt-4 w-full bg-brand-green px-4 py-3 text-sm font-bold text-brand-dark"
+              >
+                Start Your $7 Trial →
+              </button>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="border-2 border-brand-dark bg-white p-4">
+                <p className="text-xs font-bold uppercase tracking-widest text-brand-dark/60">School</p>
+                <p className="mt-1 text-lg font-extrabold">Free</p>
+                <ul className="mt-2 space-y-1.5 text-xs text-brand-dark/80">
+                  <li className="flex items-center gap-1.5"><Cross /> No recordings</li>
+                  <li className="flex items-center gap-1.5"><Cross /> 30 per class</li>
+                  <li className="flex items-center gap-1.5"><Cross /> Fixed pace</li>
+                </ul>
+              </div>
+              <div className="border-2 border-brand-dark bg-white p-4">
+                <p className="text-xs font-bold uppercase tracking-widest text-brand-dark/60">Private tutor</p>
+                <p className="mt-1 text-lg font-extrabold">$640+</p>
+                <ul className="mt-2 space-y-1.5 text-xs text-brand-dark/80">
+                  <li className="flex items-center gap-1.5"><Cross /> No recordings</li>
+                  <li className="flex items-center gap-1.5"><Cross /> No AI coach</li>
+                  <li className="flex items-center gap-1.5"><Cross /> Quality varies</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-brand-light-blue/30">
+        <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 md:py-20">
+          <SectionHeader
+            eyebrow="Real parents"
+            title="The shift parents tell us about"
+            align="left"
+            eyebrowStyle="line"
+          />
+          <div className="mt-8 grid gap-5 md:mt-10 md:grid-cols-2 md:gap-6">
+            <div className="border-2 border-brand-dark bg-white p-5 sm:p-6">
+              <p className="text-xs font-bold uppercase tracking-widest text-brand-dark/60">Before</p>
+              <p className="mt-3 text-base leading-relaxed sm:text-lg">
+                Another bad test. Homework turning into a fight every night. A tutor that cost a
+                fortune and just did the homework <em>with</em> their kid — never teaching
+                <em> the why</em>.
+              </p>
+            </div>
+            <div className="border-2 border-brand-blue bg-white p-5 sm:p-6">
+              <p className="text-xs font-bold uppercase tracking-widest text-brand-blue">
+                A few weeks in
+              </p>
+              <p className="mt-3 text-base leading-relaxed sm:text-lg">
+                Something clicks. They start getting it. They stop dreading math. The grade goes
+                up — and so does their confidence. You stop being the homework referee.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b-2 border-brand-dark bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-5 md:py-20">
+          <div className="flex flex-col items-center gap-2 text-center">
+            <Stars />
+            <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
+              Rated 4.8 &ldquo;Excellent&rdquo; by US parents
+            </h2>
+            <p className="text-brand-dark/70">21,000+ students taught across the US.</p>
+          </div>
+          <div className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 md:mt-10 [-ms-overflow-style:none] [scrollbar-width:thin]">
+            {reviews.map((r) => (
+              <article
+                key={r.name}
+                className="flex w-[280px] flex-none snap-start flex-col border-2 border-brand-dark bg-white p-6 sm:w-[340px]"
+              >
+                <Stars />
+                <p className="mt-3 font-bold">{r.title}</p>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-brand-dark/80">{r.body}</p>
+                <p className="mt-4 text-xs font-bold uppercase tracking-wide text-brand-dark/50">
+                  {r.name} · {r.city}
+                </p>
+              </article>
+            ))}
+          </div>
+          <p className="mt-2 text-center text-xs font-medium text-brand-dark/50 md:text-left">
+            Swipe to read more →
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-brand-blue text-white">
+        <div className="mx-auto grid max-w-5xl gap-8 px-4 py-14 sm:px-5 md:grid-cols-2 md:items-center md:gap-10 md:py-20">
+          <div>
+            <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
+              Try it for $7. Decide once you&rsquo;ve seen it work.
+            </h2>
+            <p className="mt-4 text-base text-white/85 sm:text-lg">
+              7 days of full access for $7 — every live class, recording, workbook and the AI
+              coach. After that it&rsquo;s $149/month, and you can cancel anytime. Plus a
+              30-day money-back guarantee on top.
+            </p>
+            <p className="mt-3 text-sm text-white/70">Compare that to a private tutor at $640+/month.</p>
+            <button
+              onClick={() => openSignup()}
+              className="mt-6 bg-brand-green px-6 py-3 font-bold text-brand-dark transition-opacity hover:opacity-90"
+            >
+              Start Your $7 Trial
+            </button>
+          </div>
+          <div className="border-2 border-brand-green bg-white p-6 text-brand-dark">
+            <Stars />
+            <p className="mt-3 font-bold">The 30-day refund made me try it</p>
+            <p className="mt-2 text-sm leading-relaxed text-brand-dark/80">
+              &ldquo;I almost didn&rsquo;t sign up — we&rsquo;d been burned before. The
+              money-back guarantee was the only reason I tried. Three months in, no regrets.&rdquo;
+            </p>
+            <p className="mt-4 text-xs font-bold uppercase tracking-wide text-brand-dark/50">
+              Lauren H. · Charlotte, NC
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b-2 border-brand-dark bg-white">
+        <div className="mx-auto max-w-3xl px-4 py-14 sm:px-5 md:py-20">
+          <SectionHeader
+            eyebrow="FAQs"
+            title="Questions parents ask first"
+            align="center"
+            eyebrowStyle="block"
+          />
+          <div className="mt-8 border-2 border-brand-dark md:mt-10">
+            <Faq
+              items={[
+                ["What if my child needs 1-on-1 attention?", "Classes are small and interactive, and Eddie answers questions live. Between lessons, the 24/7 AI coach gives unlimited one-on-one help — and every class is recorded to rewatch."],
+                ["How does the cost compare to tutoring?", "A private tutor runs $640+/month. MyEdSpace is $149/month for live classes twice a week, recordings, workbooks and the AI coach — and you start for $7."],
+                ["What grades and courses do you teach?", "Elementary Math, Pre-Algebra, Algebra I, Geometry and Algebra II, built toward PSAT, SAT, ACT and AP. Pick your child's grade and we'll place them in the right course — full curriculum above."],
+                ["What if my child misses a class?", "Every live class is recorded and available to rewatch any time, so a missed session never means falling behind."],
+                ["Is there a guarantee?", "Yes — a 30-day money-back guarantee. Start for $7, and if it isn't right for your child, you're covered."],
+              ]}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-brand-blue text-white">
+        <div className="mx-auto max-w-3xl px-4 py-14 text-center sm:px-5 md:py-20">
+          <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
+            Same teacher. Same time. Every week until it clicks.
+          </h2>
+          <p className="mt-4 text-base text-white/80 sm:text-lg">
+            Start today for $7. Cancel anytime. 30-day money-back guarantee.
+          </p>
+          <button
+            onClick={() => openSignup()}
+            className="mt-7 bg-brand-green px-8 py-4 text-base font-bold text-brand-dark transition-opacity hover:opacity-90 sm:text-lg"
+          >
+            Start Your $7 Trial
+          </button>
+        </div>
+      </section>
+
+      <footer className="bg-brand-dark pb-20 text-white/60 md:pb-0">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 border-t-2 border-white/20 px-4 py-8 text-sm sm:flex-row sm:px-5">
+          <span className="font-extrabold text-white">MyEdSpace</span>
+          <div className="flex gap-6">
+            <a href="#" className="hover:text-white">Terms</a>
+            <a href="#" className="hover:text-white">Privacy</a>
+            <a href="#" className="hover:text-white">Contact</a>
+          </div>
+          <span>© {new Date().getFullYear()} MyEdSpace</span>
+        </div>
+      </footer>
+
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t-2 border-brand-dark bg-white p-3 md:hidden">
+        <button
+          onClick={() => openSignup()}
+          className="flex w-full items-center justify-center gap-2 bg-brand-green px-4 py-3 font-bold text-brand-dark"
+        >
+          Start Your $7 Trial
+          <span className="text-xs font-medium">· risk-free</span>
+        </button>
       </div>
+
+      {signupOpen && <SignupModal presetGrade={presetGrade} onClose={() => setSignupOpen(false)} />}
     </main>
+  );
+}
+
+function GradePicker({ audience, onStart }: { audience: "parent" | "student"; onStart: (grade: string) => void }) {
+  const [grade, setGrade] = useState("");
+  const [matching, setMatching] = useState(false);
+
+  function handleChange(g: string) {
+    setGrade(g);
+    if (g) {
+      setMatching(true);
+      setTimeout(() => setMatching(false), 800);
+    } else {
+      setMatching(false);
+    }
+  }
+
+  return (
+    <div className="mt-4">
+      <select
+        value={grade}
+        onChange={(e) => handleChange(e.target.value)}
+        className="w-full border-2 border-brand-dark bg-white px-4 py-3 text-base font-medium focus:outline-none focus:ring-2 focus:ring-brand-blue"
+      >
+        <option value="">Choose grade…</option>
+        {GRADES.map((g) => (
+          <option key={g} value={g}>Grade {g}</option>
+        ))}
+      </select>
+      {grade && matching && (
+        <div className="mt-3 flex items-center gap-2 border-l-2 border-brand-blue bg-brand-light-blue/30 px-3 py-2 text-sm text-brand-dark">
+          <span className="inline-block h-3 w-3 flex-none animate-spin border-2 border-brand-blue border-t-transparent" aria-hidden="true" />
+          <p className="font-medium">{audience === "parent" ? "Matching your child to the right class…" : "Matching you to the right class…"}</p>
+        </div>
+      )}
+      {grade && !matching && (
+        <div className="mt-3 border-l-2 border-brand-blue bg-brand-light-blue/30 px-3 py-2 text-sm text-brand-dark">
+          <p>
+            Perfect — {audience === "parent" ? "they\u2019ll" : "you\u2019ll"} join{" "}
+            <span className="font-bold text-brand-blue">{GRADE_TO_COURSE[grade]}</span>, matched to
+            {audience === "parent" ? " their" : " your"} grade.
+          </p>
+          <p className="mt-1 text-xs font-medium text-brand-dark/70">
+            Classes: {COURSE_SCHEDULE[GRADE_TO_COURSE[grade]]}
+          </p>
+        </div>
+      )}
+      <button
+        onClick={() => onStart(grade)}
+        disabled={!grade || matching}
+        className={
+          grade && !matching
+            ? "mt-4 w-full bg-brand-green px-4 py-4 text-base font-bold text-brand-dark transition-opacity hover:opacity-90"
+            : "mt-4 w-full cursor-not-allowed border-2 border-dashed border-brand-dark/30 bg-white px-4 py-4 text-sm font-semibold text-brand-dark/50"
+        }
+      >
+        {grade && !matching ? "Start My $7 Trial →" : grade && matching ? "Finding the right class…" : "↑ Select a grade to continue"}
+      </button>
+    </div>
+  );
+}
+
+function Faq({ items }: { items: [string, string][] }) {
+  const [open, setOpen] = useState<number | null>(0);
+  return (
+    <div>
+      {items.map(([q, a], i) => {
+        const isOpen = open === i;
+        return (
+          <div key={q} className={i > 0 ? "border-t-2 border-brand-dark" : ""}>
+            <button
+              onClick={() => setOpen(isOpen ? null : i)}
+              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left font-bold"
+            >
+              {q}
+              <span className="text-brand-blue">{isOpen ? "–" : "+"}</span>
+            </button>
+            {isOpen && <p className="px-5 pb-5 text-sm leading-relaxed text-brand-dark/80">{a}</p>}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function SignupModal({ presetGrade, onClose }: { presetGrade: string; onClose: () => void }) {
+  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [grade, setGrade] = useState(presetGrade);
+  const [phone, setPhone] = useState("");
+  const [phoneSaved, setPhoneSaved] = useState(false);
+
+  const step1Valid = firstName && lastName && email.includes("@") && grade;
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-brand-dark/80 p-4 sm:items-center"
+      onClick={onClose}
+    >
+      <div className="my-auto w-full max-w-md border-2 border-brand-dark bg-white" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between border-b-2 border-brand-dark px-5 py-3">
+          <span className="text-sm font-bold uppercase tracking-wide text-brand-dark/60">
+            {step < 3 ? `Step ${step} of 2` : "You're in"}
+          </span>
+          <button onClick={onClose} aria-label="Close" className="text-brand-dark/60 hover:text-brand-dark">
+            <Cross />
+          </button>
+        </div>
+
+        <div className="p-5 sm:p-6">
+          {step === 1 && (
+            <>
+              <h3 className="text-xl font-extrabold">Start your $7 trial</h3>
+              <p className="mt-1 text-sm text-brand-dark/70">7 days full access. Cancel anytime.</p>
+              <div className="mt-5 grid grid-cols-2 gap-3">
+                <Field label="First name" value={firstName} onChange={setFirstName} />
+                <Field label="Last name" value={lastName} onChange={setLastName} />
+              </div>
+              <div className="mt-3">
+                <Field label="Email" type="email" value={email} onChange={setEmail} placeholder="you@email.com" />
+              </div>
+              <div className="mt-3">
+                <label className="text-xs font-bold uppercase tracking-wide text-brand-dark/60">
+                  Child&rsquo;s grade
+                </label>
+                <select
+                  value={grade}
+                  onChange={(e) => setGrade(e.target.value)}
+                  className="mt-1 w-full border-2 border-brand-dark bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-blue"
+                >
+                  <option value="">Choose grade…</option>
+                  {GRADES.map((g) => (
+                    <option key={g} value={g}>Grade {g} — {GRADE_TO_COURSE[g]}</option>
+                  ))}
+                </select>
+              </div>
+              <button
+                disabled={!step1Valid}
+                onClick={() => setStep(2)}
+                className="mt-5 w-full bg-brand-green px-4 py-3 font-bold text-brand-dark transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                Continue to checkout
+              </button>
+            </>
+          )}
+
+          {step === 2 && (
+            <>
+              <h3 className="text-xl font-extrabold">Checkout</h3>
+              <div className="mt-4 border-2 border-brand-dark bg-brand-light-blue/30 p-4 text-sm">
+                <div className="flex justify-between font-bold">
+                  <span>7-day trial — {grade ? GRADE_TO_COURSE[grade] : "Math"}</span>
+                  <span>$7.00</span>
+                </div>
+                <p className="mt-2 text-brand-dark/70">
+                  Then $149/month after your 7-day trial. Cancel anytime before it ends and you
+                  won&rsquo;t be charged.
+                </p>
+              </div>
+              <div className="mt-4 space-y-3">
+                <Field label="Card number" placeholder="1234 1234 1234 1234" />
+                <div className="grid grid-cols-2 gap-3">
+                  <Field label="Expiry" placeholder="MM / YY" />
+                  <Field label="CVC" placeholder="123" />
+                </div>
+                <Field label="ZIP code" placeholder="90210" />
+              </div>
+              <button
+                onClick={() => setStep(3)}
+                className="mt-5 w-full bg-brand-green px-4 py-3 font-bold text-brand-dark transition-opacity hover:opacity-90"
+              >
+                Pay $7 &amp; start trial
+              </button>
+              <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-brand-dark/60">
+                <Lock /> Secure checkout · 30-day money-back guarantee
+              </p>
+              <p className="mt-2 text-center text-xs text-brand-dark/50">
+                By starting your trial you agree to our{" "}
+                <a href="#" className="underline">Terms</a> and{" "}
+                <a href="#" className="underline">Privacy Policy</a>.
+              </p>
+            </>
+          )}
+
+          {step === 3 && (
+            <>
+              <div className="flex items-center gap-2">
+                <Check />
+                <h3 className="text-xl font-extrabold">You&rsquo;re in, {firstName}!</h3>
+              </div>
+              <p className="mt-2 text-sm text-brand-dark/80">
+                We&rsquo;ve emailed your class schedule and login to{" "}
+                <span className="font-bold">{email}</span>.
+              </p>
+              <div className="mt-4 border-2 border-brand-dark">
+                <p className="border-b-2 border-brand-dark bg-brand-light-blue/30 px-4 py-2 text-xs font-bold uppercase tracking-widest text-brand-dark">
+                  What happens next
+                </p>
+                <ol className="divide-y-2 divide-brand-dark/10">
+                  <li className="flex gap-3 px-4 py-3">
+                    <span className="flex h-6 w-6 flex-none items-center justify-center bg-brand-blue text-xs font-extrabold text-white">1</span>
+                    <p className="text-sm text-brand-dark/80"><span className="font-bold text-brand-dark">Check your email</span> — login + class link, arriving now.</p>
+                  </li>
+                  <li className="flex gap-3 px-4 py-3">
+                    <span className="flex h-6 w-6 flex-none items-center justify-center bg-brand-blue text-xs font-extrabold text-white">2</span>
+                    <p className="text-sm text-brand-dark/80"><span className="font-bold text-brand-dark">Join the first live class this week</span> — {grade ? GRADE_TO_COURSE[grade] : "math"}, with {grade && (GRADE_TO_COURSE[grade] === "Elementary Math" || GRADE_TO_COURSE[grade] === "Pre-Algebra") ? "Adam" : "Eddie"}.</p>
+                  </li>
+                  <li className="flex gap-3 px-4 py-3">
+                    <span className="flex h-6 w-6 flex-none items-center justify-center bg-brand-blue text-xs font-extrabold text-white">3</span>
+                    <p className="text-sm text-brand-dark/80"><span className="font-bold text-brand-dark">Only $7 today.</span> Your $149/mo starts after 7 days — cancel anytime before then, no charge.</p>
+                  </li>
+                </ol>
+              </div>
+              <div className="mt-5 border-2 border-brand-dark p-4">
+                <p className="text-sm font-bold">Want class reminders by text? (optional)</p>
+                <p className="mt-1 text-xs text-brand-dark/60">
+                  We&rsquo;ll text a reminder before each live class. US numbers only.
+                </p>
+                {!phoneSaved ? (
+                  <div className="mt-3 flex gap-2">
+                    <span className="flex items-center border-2 border-brand-dark px-3 text-sm">+1</span>
+                    <input
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="(555) 123-4567"
+                      className="w-full border-2 border-brand-dark px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
+                    />
+                    <button onClick={() => setPhoneSaved(true)} className="bg-brand-blue px-3 text-sm font-bold text-white">
+                      Save
+                    </button>
+                  </div>
+                ) : (
+                  <p className="mt-3 text-sm font-bold text-brand-blue">
+                    Saved — we&rsquo;ll text you before each class.
+                  </p>
+                )}
+              </div>
+              <button
+                onClick={onClose}
+                className="mt-5 w-full bg-brand-green px-4 py-3 font-bold text-brand-dark transition-opacity hover:opacity-90"
+              >
+                Done
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Field({
+  label,
+  value,
+  onChange,
+  placeholder,
+  type = "text",
+}: {
+  label: string;
+  value?: string;
+  onChange?: (v: string) => void;
+  placeholder?: string;
+  type?: string;
+}) {
+  return (
+    <div>
+      <label className="text-xs font-bold uppercase tracking-wide text-brand-dark/60">{label}</label>
+      <input
+        type={type}
+        value={value}
+        onChange={onChange ? (e) => onChange(e.target.value) : undefined}
+        placeholder={placeholder}
+        className="mt-1 w-full border-2 border-brand-dark bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-blue"
+      />
+    </div>
   );
 }
